@@ -113,6 +113,14 @@ namespace LAOUSSING_Damien_DM_IPI_2021_2022
         // =======================================================================
         public static Character ChooseTarget(List<Tuple<int, Character>> characters, Character playerCharacter)
         {
+            Console.WriteLine();
+            Console.WriteLine("*********************************************");
+            Console.WriteLine("**********      À VOTRE TOUR !     **********");
+            Console.WriteLine("*********************************************");
+            Console.WriteLine();
+
+            Round.AlertCharactersRemaining(characters, playerCharacter);  // Alert Message : characters remaining
+
             bool isNumber = true;
             int targetId = 0;
 
@@ -140,6 +148,9 @@ namespace LAOUSSING_Damien_DM_IPI_2021_2022
                 }
             }
             while (isNumber == false || targetId < 1 || targetId > characters.Count || characters[targetId - 1].Item2 == playerCharacter);
+
+            Console.WriteLine();
+            Console.WriteLine("*********************************************");
 
             return characters[targetId - 1].Item2;
         }

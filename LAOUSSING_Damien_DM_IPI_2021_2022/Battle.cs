@@ -7,13 +7,12 @@ namespace LAOUSSING_Damien_DM_IPI_2021_2022
     public class Battle
     {
         private List<Tuple<int, Character>> Characters;
-        private Character PlayerCharacter;
+        public Character PlayerCharacter;
         public int countRound = 0;
 
-        public Battle(List<Tuple<int, Character>> characters, Character playerCharacter)
+        public Battle(List<Tuple<int, Character>> characters)
         {
             this.Characters = new List<Tuple<int, Character>>(characters);
-            this.PlayerCharacter = playerCharacter;
         }
 
 
@@ -72,7 +71,8 @@ namespace LAOUSSING_Damien_DM_IPI_2021_2022
                 Console.WriteLine();
 
                 // On lance le round avec une liste de personnage déjà trié (1er de la liste == 1er qui commence ect...)
-                Round round = new Round(Characters, PlayerCharacter);
+                Round round = new Round(Characters);
+                round.PlayerCharacter = PlayerCharacter;
                 round.PlayRound();
 
                 round.AlertResumeRound();

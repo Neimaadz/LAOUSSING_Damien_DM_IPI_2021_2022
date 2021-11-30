@@ -6,12 +6,11 @@ namespace LAOUSSING_Damien_DM_IPI_2021_2022
     public class Round
     {
         private List<Tuple<int, Character>> Characters;
-        private Character PlayerCharacter;
+        public Character PlayerCharacter;
 
-        public Round(List<Tuple<int, Character>> characters, Character playerCharacter)
+        public Round(List<Tuple<int, Character>> characters)
         {
             this.Characters = characters;
-            this.PlayerCharacter = playerCharacter;
         }
 
 
@@ -29,19 +28,12 @@ namespace LAOUSSING_Damien_DM_IPI_2021_2022
 
                 if (currentCharacter == PlayerCharacter && PlayerCharacter.CurrentAttackNumber > 0 && PlayerCharacter.CurrentLife > 0 && Battle.HaveWinner(Characters) == false)
                 {
-                    Console.WriteLine();
-                    Console.WriteLine("*********************************************");
-                    Console.WriteLine("**********      À VOTRE TOUR !     **********");
-                    Console.WriteLine("*********************************************");
-                    Console.WriteLine();
-
                     // Tant que personnage du JOUEUR peux attaquer
                     while (PlayerCharacter.CurrentAttackNumber > 0 && PlayerCharacter.CurrentLife > 0 && Battle.HaveWinner(Characters) == false)
                     {
-                        AlertCharactersRemaining();  // Alert Message : characters remaining
-
                         int indexTarget = 0;
                         Character target = PlayerActions.ChooseTarget(Characters, PlayerCharacter);
+                        Console.WriteLine();
 
                         // permet de récup l'index de la cible
                         Characters.ForEach(c => { if (c.Item2 == target) indexTarget = Characters.IndexOf(c); });
@@ -253,19 +245,19 @@ namespace LAOUSSING_Damien_DM_IPI_2021_2022
         // =======================================================================
         // Method : affiche la liste des personnages restants
         // =======================================================================
-        private void AlertCharactersRemaining()
+        public static void AlertCharactersRemaining(List<Tuple<int, Character>> characters, Character playerCharacter)
         {
             // On affiche la liste des personnages restant
-            for (int i = 0; i < Characters.Count; i++)
+            for (int i = 0; i < characters.Count; i++)
             {
-                if (Characters[i].Item2 != PlayerCharacter)
+                if (characters[i].Item2 != playerCharacter)
                 {
                     Console.WriteLine("     {0} : {1} ({2}) vie : {3}",
-                        i + 1, Characters[i].Item2.Name, Characters[i].Item2.GetType().Name, Characters[i].Item2.CurrentLife);
+                        i + 1, characters[i].Item2.Name, characters[i].Item2.GetType().Name, characters[i].Item2.CurrentLife);
                 }
                 else
                 {
-                    Console.WriteLine("===> {0} : {1} ({2}) vie : {3}", i + 1, PlayerCharacter.Name, PlayerCharacter.GetType().Name, PlayerCharacter.CurrentLife);
+                    Console.WriteLine("===> {0} : {1} ({2}) vie : {3}", i + 1, playerCharacter.Name, playerCharacter.GetType().Name, playerCharacter.CurrentLife);
                 }
             }
         }
@@ -299,11 +291,11 @@ namespace LAOUSSING_Damien_DM_IPI_2021_2022
             {
                 if (Characters[i].Item2 != PlayerCharacter)
                 {
-                    Console.WriteLine("=====    {0} vie restant : {1}", Characters[i].Item2.Name, Characters[i].Item2.CurrentLife);
+                    Console.WriteLine("=====    {0} ({1}) vie restant : {2}", Characters[i].Item2.Name, Characters[i].Item2.GetType().Name, Characters[i].Item2.CurrentLife);
                 }
                 else
                 {
-                    Console.WriteLine("======>  {0} vie restant : {1}", PlayerCharacter.Name, PlayerCharacter.CurrentLife);
+                    Console.WriteLine("======>  {0} ({1}) vie restant : {2}", PlayerCharacter.Name, Characters[i].Item2.GetType().Name, PlayerCharacter.CurrentLife);
                 }
             }
             Console.WriteLine("=====                                         ");
