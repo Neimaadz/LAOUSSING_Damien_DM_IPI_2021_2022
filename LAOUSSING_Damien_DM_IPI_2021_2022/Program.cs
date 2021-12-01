@@ -37,40 +37,37 @@ namespace LAOUSSING_Damien_DM_IPI_2021_2022
             //characters.Add(new Tuple<int, Character>(0, new Priest("Priester")));
             //characters.Add(new Tuple<int, Character>(0, new Kamikaze("Ziggs")));
 
-            //characters.Add(new Tuple<int, Character>(0, new Berserk("Tryndamere")));
-            //characters.Add(new Tuple<int, Character>(0, new Berserk("Arnwulf")));
-            //characters.Add(new Tuple<int, Character>(0, new Vampire("Edward")));
-            //characters.Add(new Tuple<int, Character>(0, new Warrior("Pantheon")));
-            //characters.Add(new Tuple<int, Character>(0, new Ghoul("Gunlawd")));
-            //characters.Add(new Tuple<int, Character>(0, new Robot("Roobocop")));
-            //characters.Add(new Tuple<int, Character>(0, new Robot("Terminator")));
-            //characters.Add(new Tuple<int, Character>(0, new Ghoul("Khox")));
-            //characters.Add(new Tuple<int, Character>(0, new Kamikaze("BOUM")));
-            //characters.Add(new Tuple<int, Character>(0, new Kamikaze("Sacrifice")));
-            //characters.Add(new Tuple<int, Character>(0, new Guardian("Nasus")));
-            //characters.Add(new Tuple<int, Character>(0, new Guardian("Zerator")));
-            //characters.Add(new Tuple<int, Character>(0, new Guardian("Tarmac")));
-            //characters.Add(new Tuple<int, Character>(0, new Zombie("Pzoml")));
-            //characters.Add(new Tuple<int, Character>(0, new Zombie("Voilme")));
 
 
 
             Console.WriteLine();
             Console.WriteLine();
-            Console.WriteLine("*************************************************************");
-            Console.WriteLine("*************                                    ************");
-            Console.WriteLine("*************        BIENVENUE SUR LE JEU        ************");
-            Console.WriteLine("*************                                    ************");
-            Console.WriteLine("*************************************************************");
+            Console.WriteLine("                       *****************************************************************                               ");
+            Console.WriteLine("                  ***************************************************************************                          ");
+            Console.WriteLine("             *************************************************************************************                     ");
+            Console.WriteLine("        ******************                                                           ******************                ");
+            Console.WriteLine("   ***********************                                                           ***********************           ");
+            Console.WriteLine("**************************                  BIENVENUE SUR LE JEU                     **************************        ");
+            Console.WriteLine("   ***********************                                                           ***********************           ");
+            Console.WriteLine("        ******************                                                           ******************                ");
+            Console.WriteLine("             *************************************************************************************                     ");
+            Console.WriteLine("                  ***************************************************************************                          ");
+            Console.WriteLine("                       *****************************************************************                               ");
 
             Console.WriteLine();
             Console.WriteLine();
-
-            Console.WriteLine("*************************************************************");
-            Console.WriteLine("*************             MENU DU JEU            ************");
-            Console.WriteLine("*************************************************************");
             Console.WriteLine();
-            Console.WriteLine("            1 : Player vs IA        2 : Demo IA              ");
+            Console.WriteLine();
+
+            Console.WriteLine("***************************************************");
+            Console.WriteLine("*****               MENU DU JEU               *****");
+            Console.WriteLine("***************************************************");
+            Console.WriteLine("*****                                         *****");
+            Console.WriteLine("*****                                         *****");
+            Console.WriteLine("*****    1 : Player vs AI     2 : Demo AI     *****");
+            Console.WriteLine("*****                                         *****");
+            Console.WriteLine("*****                                         *****");
+            Console.WriteLine("***************************************************");
             Console.WriteLine();
 
             int selectgame = SelectGame();
@@ -81,7 +78,7 @@ namespace LAOUSSING_Damien_DM_IPI_2021_2022
             Console.WriteLine();
 
 
-            if (selectgame == 1)    // Player vs IA
+            if (selectgame == 1)    // Player vs AI
             {
                 // ********************************** Init choix du Joueur **********************************
                 string playerCharacterName = PlayerActions.ChooseCharacterName(characters);
@@ -102,7 +99,7 @@ namespace LAOUSSING_Damien_DM_IPI_2021_2022
                 battle.PlayerCharacter = playerCharacter;
                 battle.StartBattle();
             }
-            else    // Demo IA
+            else    // Demo AI
             {
                 Battle battle = new Battle(characters);
                 battle.StartBattle();
@@ -201,6 +198,7 @@ namespace LAOUSSING_Damien_DM_IPI_2021_2022
         // =======================================================================
         public static List<Tuple<int, Character>> RandomListBotCharacters(List<Tuple<int, Type>> listTypes, int numberBot)
         {
+            // Tuple contenant le jetInitiative (de chaque round) associé au personnage
             List<Tuple<int, Character>> characters = new List<Tuple<int, Character>>();
 
             for (int i=0; i<numberBot; i++)
