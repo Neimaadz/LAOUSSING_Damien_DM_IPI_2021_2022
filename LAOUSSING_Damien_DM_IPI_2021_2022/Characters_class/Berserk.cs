@@ -44,45 +44,20 @@ namespace LAOUSSING_Damien_DM_IPI_2021_2022
         // =======================================================================
         // Method override : (Berseker) Ajoute tous les points de vie qu'il a perdu a ses dégâts au moment d’attaquer
         // =======================================================================
-        public override void DealDamage(List<Tuple<int, Character>> characters, Character target, int margeAttack, int damageDeal)
+        public override void ActionAttack(List<Tuple<int, Character>> characters, Character target)
         {
-            CurrentAttackNumber -= 1;   // On retire -1 point d'attaque
+            Console.WriteLine("{0} lance Attaque", Name);
+
+            int jetAttack = JetAttack();
+            int targetJetDefense = target.JetDefense();
+            int margeAttack = jetAttack - targetJetDefense;
 
             // Berseker : Ajoute tous les points de vie qu'il a perdu a ses dégâts au moment d’attaquer
-            damageDeal += (MaximumLife - CurrentLife);
+            Damage = MaximumLife - CurrentLife;
+            int damageDeal = margeAttack * Damage / 100;
 
-            switch (margeAttack)
-            {
-                //============================ Attaque réussi ===========================================================
-                case int n when n > 0:
-
-                    Console.WriteLine("{0} : -{1} PDV", target.Name, damageDeal);
-                    target.CurrentLife -= damageDeal;
-
-                    //============================ Cas de la cible ===========================================================
-
-                    // Si cible est sensible à la douleur
-                    if (target is IPain)
-                    {
-                        (target as IPain).Pain(damageDeal);     // damageDeal = dégat subis
-                    }
-
-                    IsCharacterDead(characters, target);
-                    break;
-
-                //============================ Defense de l'adversaire réussi ===========================================================
-                case int n when n <= 0:
-                    Console.WriteLine("Echec de l'attaque...");
-
-                    if (target.CurrentAttackNumber > 0)    // Si le défenseur qui contre-attaque possède assez de point d'attaque
-                    {
-                        target.ActionCounterAttack(characters, this, margeAttack);  // Defenseur contre attaque
-                    }
-
-                    break;
-            }
+            DealDamage(characters, target, margeAttack, damageDeal);
         }
-
 
 
 
