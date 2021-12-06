@@ -36,43 +36,52 @@ namespace LAOUSSING_Damien_DM_IPI_2021_2022
                 CurrentAttackNumber = TotalAttackNumber;
             }
 
-
-            // Pas de check IsSensitiveToPain() : Le berseker n’est pas affecté par la douleur
+            // Pas de check (this as IPain).IsSensitiveToPain() : Le berseker n’est pas affecté par la douleur
         }
 
 
 
-        public override void ActionAttack(List<Tuple<int, Character>> characters, Character target)
+        // =======================================================================
+        // Method override : (Berseker) Ajoute tous les points de vie qu'il a perdu a ses dégâts au moment d’attaquer
+        // =======================================================================
+        public override void DealDamage(List<Tuple<int, Character>> characters, Character target, int margeAttack, int damageDeal)
         {
-            Console.WriteLine("{0} lance Attaque", Name);
+            CurrentAttackNumber -= 1;   // On retire -1 point d'attaque
 
-            int jetAttack = JetAttack();
-            int targetJetDefense = target.JetDefense();
-            int margeAttack = jetAttack - targetJetDefense;
+            // Berseker : Ajoute tous les points de vie qu'il a perdu a ses dégâts au moment d’attaquer
+            damageDeal += (MaximumLife - CurrentLife);
 
-            // Ajoute tous les points de vie qu'il a perdu a ses dégâts au moment d’attaquer
-            int damageTaken = MaximumLife - CurrentLife;
-            int damageDeal = margeAttack * (Damage + damageTaken) / 100;
+            switch (margeAttack)
+            {
+                //============================ Attaque réussi ===========================================================
+                case int n when n > 0:
 
-            DealDamage(characters, this, target, margeAttack, damageDeal);
+                    Console.WriteLine("{0} : -{1} PDV", target.Name, damageDeal);
+                    target.CurrentLife -= damageDeal;
+
+                    //============================ Cas de la cible ===========================================================
+
+                    // Si cible est sensible à la douleur
+                    if (target is IPain)
+                    {
+                        (target as IPain).Pain(damageDeal);     // damageDeal = dégat subis
+                    }
+
+                    IsCharacterDead(characters, target);
+                    break;
+
+                //============================ Defense de l'adversaire réussi ===========================================================
+                case int n when n <= 0:
+                    Console.WriteLine("Echec de l'attaque...");
+
+                    if (target.CurrentAttackNumber > 0)    // Si le défenseur qui contre-attaque possède assez de point d'attaque
+                    {
+                        target.ActionCounterAttack(characters, this, margeAttack);  // Defenseur contre attaque
+                    }
+
+                    break;
+            }
         }
-
-        public override void ActionCounterAttack(List<Tuple<int, Character>> characters, Character target, int margeAttack)
-        {
-            Console.WriteLine("{0} lance Contre-attaque", Name);
-            int bonusAttack = margeAttack * (-1);
-            
-            int jetAttack = JetAttack() + bonusAttack;
-            int targetJetDefense = target.JetDefense();
-            int margeCounterAttack = jetAttack - targetJetDefense;
-
-            // Ajoute tous les points de vie qu'il a perdu a ses dégâts au moment d’attaquer
-            int damageTaken = MaximumLife - CurrentLife;
-            int damageDeal = margeCounterAttack * (Damage + damageTaken) / 100;
-
-            DealDamage(characters, this, target, margeCounterAttack, damageDeal);
-        }
-
 
 
 

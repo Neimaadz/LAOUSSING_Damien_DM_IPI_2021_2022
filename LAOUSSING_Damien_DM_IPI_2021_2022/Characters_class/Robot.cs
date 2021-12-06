@@ -32,8 +32,7 @@ namespace LAOUSSING_Damien_DM_IPI_2021_2022
             Console.WriteLine("{0} : +{1} Attaque", Name, damageBoost);
             Console.WriteLine();
 
-
-            (this as IPain).IsSensitiveToPain();
+            (this as IPain).IsSensitiveToPain();    // Check si on est affecté par la douleur
         }
 
 

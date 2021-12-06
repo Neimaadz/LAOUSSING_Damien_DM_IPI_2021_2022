@@ -90,7 +90,7 @@ namespace LAOUSSING_Damien_DM_IPI_2021_2022
                     }
                     else
                     {
-                        Console.WriteLine("{0} : {1} round avant de pouvoir attaquer", Name, CountAttackOff);
+                        Console.WriteLine("{0} : {1} round avant de pouvoir attaquer", Name, CountAttackOff-1);
                         Console.WriteLine();
                     }
 

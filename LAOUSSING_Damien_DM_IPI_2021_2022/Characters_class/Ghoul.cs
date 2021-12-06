@@ -27,7 +27,7 @@ namespace LAOUSSING_Damien_DM_IPI_2021_2022
         public override void OnEachRound()
         {
             CurrentAttackNumber = TotalAttackNumber;    // Réinitialisation des points d'actions
-            (this as IPain).IsSensitiveToPain();
+            (this as IPain).IsSensitiveToPain();    // Check si on est affecté par la douleur
         }
 
 

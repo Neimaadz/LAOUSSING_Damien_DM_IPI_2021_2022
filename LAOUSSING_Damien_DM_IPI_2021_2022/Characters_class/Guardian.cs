@@ -24,11 +24,14 @@ namespace LAOUSSING_Damien_DM_IPI_2021_2022
         public override void OnEachRound()
         {
             CurrentAttackNumber = TotalAttackNumber;    // Réinitialisation des points d'actions
-            (this as IPain).IsSensitiveToPain();
+            (this as IPain).IsSensitiveToPain();    // Check si on est affecté par la douleur
         }
 
 
 
+        // =======================================================================
+        // Method override : (Gardien) Bonus contre-attaque doublé
+        // =======================================================================
         public override void ActionCounterAttack(List<Tuple<int, Character>> characters, Character target, int margeAttack)
         {
             Console.WriteLine("{0} lance Contre-attaque", Name);
@@ -39,7 +42,56 @@ namespace LAOUSSING_Damien_DM_IPI_2021_2022
             int margeCounterAttack = jetAttack - targetJetDefense;
             int damageDeal = margeCounterAttack * Damage / 100;
 
-            DealDamage(characters, this, target, margeCounterAttack, damageDeal);
+            DealDamage(characters, target, margeCounterAttack, damageDeal);
+        }
+
+
+        // =======================================================================
+        // Method override : (Gardien) Inflige des dégâts sacrés
+        // =======================================================================
+        public override void DealDamage(List<Tuple<int, Character>> characters, Character target, int margeAttack, int damageDeal)
+        {
+            CurrentAttackNumber -= 1;   // On retire -1 point d'attaque
+
+            switch (margeAttack)
+            {
+                //============================ Attaque réussi ===========================================================
+                case int n when n > 0:
+
+                    if (target is ICursed)  // Gardien : Inflige des dégâts sacrés
+                    {
+                        Console.WriteLine("{0} inflige des dégats sacrés", Name);
+                        Console.WriteLine("{0} : -{1} PDV", target.Name, (this as IHolyDamage).DealHolyDamage(damageDeal));
+                        target.CurrentLife -= (this as IHolyDamage).DealHolyDamage(damageDeal);
+                    }
+                    else
+                    {
+                        Console.WriteLine("{0} : -{1} PDV", target.Name, damageDeal);
+                        target.CurrentLife -= damageDeal;
+                    }
+
+                    //============================ Cas de la cible ===========================================================
+
+                    // Si cible est sensible à la douleur
+                    if (target is IPain)
+                    {
+                        (target as IPain).Pain(damageDeal);     // damageDeal = dégat subis
+                    }
+
+                    IsCharacterDead(characters, target);
+                    break;
+
+                //============================ Defense de l'adversaire réussi ===========================================================
+                case int n when n <= 0:
+                    Console.WriteLine("Echec de l'attaque...");
+
+                    if (target.CurrentAttackNumber > 0)    // Si le défenseur qui contre-attaque possède assez de point d'attaque
+                    {
+                        target.ActionCounterAttack(characters, this, margeAttack);  // Defenseur contre attaque
+                    }
+
+                    break;
+            }
         }
 
 

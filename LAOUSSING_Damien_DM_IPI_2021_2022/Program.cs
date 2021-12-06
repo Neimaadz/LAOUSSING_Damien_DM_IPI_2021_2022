@@ -140,6 +140,7 @@ namespace LAOUSSING_Damien_DM_IPI_2021_2022
         public static int GameMode()
         {
             ConsoleKeyInfo playerAnswer;
+            bool isNumber = true;
             int number;
 
             do
@@ -147,10 +148,15 @@ namespace LAOUSSING_Damien_DM_IPI_2021_2022
                 Console.WriteLine();
                 Console.Write("Please select a game mode : ");
                 playerAnswer = Console.ReadKey();
+                isNumber = int.TryParse(playerAnswer.KeyChar.ToString(), out number);
 
-                number = int.Parse(playerAnswer.KeyChar.ToString());
+                if (isNumber == false)
+                {
+                    Console.WriteLine();
+                    Console.WriteLine("Erreur : veuillez entrer un nombre !");
+                }
             }
-            while ( !(1 <= number && number <= 4) );    // number DOIT ETRE compris entre 1 et 4
+            while (isNumber == false || !(1 <= number && number <= 4) );    // number DOIT ETRE compris entre 1 et 4
 
             return number;
         }

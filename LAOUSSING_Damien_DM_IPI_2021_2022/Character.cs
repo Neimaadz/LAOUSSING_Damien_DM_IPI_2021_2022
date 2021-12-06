@@ -46,6 +46,8 @@ namespace LAOUSSING_Damien_DM_IPI_2021_2022
             CurrentAttackNumber = TotalAttackNumber;    // Réinitialisation des points d'actions
         }
 
+
+
         public virtual int JetAttack()
         {
             return Attack + new Random().Next(1, 101);
@@ -65,7 +67,7 @@ namespace LAOUSSING_Damien_DM_IPI_2021_2022
             int margeAttack = jetAttack - targetJetDefense;
             int damageDeal = margeAttack * Damage / 100;
 
-            DealDamage(characters, this, target, margeAttack, damageDeal);
+            DealDamage(characters, target, margeAttack, damageDeal);
         }
 
         public virtual void ActionCounterAttack(List<Tuple<int, Character>> characters, Character target, int margeAttack)
@@ -78,12 +80,53 @@ namespace LAOUSSING_Damien_DM_IPI_2021_2022
             int margeCounterAttack = jetAttack - targetJetDefense;
             int damageDeal = margeCounterAttack * Damage / 100;
 
-            DealDamage(characters, this, target, margeCounterAttack, damageDeal);
+            DealDamage(characters, target, margeCounterAttack, damageDeal);
         }
 
 
+        // =======================================================================
+        // Methode : permettant de savoir si une attaque et réussi ou pas selon la margeAttack
+        // =======================================================================
+        public virtual void DealDamage(List<Tuple<int, Character>> characters, Character target, int margeAttack, int damageDeal)
+        {
+            CurrentAttackNumber -= 1;   // On retire -1 point d'attaque
 
+            switch (margeAttack)
+            {
+                //============================ Attaque réussi ===========================================================
+                case int n when n > 0:
+
+                    Console.WriteLine("{0} : -{1} PDV", target.Name, damageDeal);
+                    target.CurrentLife -= damageDeal;
+
+                    //============================ Cas de la cible ===========================================================
+
+                    // Si cible est sensible à la douleur
+                    if (target is IPain)
+                    {
+                        (target as IPain).Pain(damageDeal);     // damageDeal = dégat subis
+                    }
+
+                    IsCharacterDead(characters, target);
+                    break;
+
+                //============================ Defense de l'adversaire réussi ===========================================================
+                case int n when n <= 0:
+                    Console.WriteLine("Echec de l'attaque...");
+
+                    if (target.CurrentAttackNumber > 0)    // Si le défenseur qui contre-attaque possède assez de point d'attaque
+                    {
+                        target.ActionCounterAttack(characters, this, margeAttack);  // Defenseur contre attaque
+                    }
+
+                    break;
+            }
+        }
+
+
+        // =======================================================================
         // Retourne une cible aléatoire
+        // =======================================================================
         public virtual Character RandomTarget(List<Tuple<int, Character>> characters)
         {
             Character target;
@@ -129,85 +172,9 @@ namespace LAOUSSING_Damien_DM_IPI_2021_2022
          ****************************************************************************************************************************/
 
 
-        // Methode permettant de savoir si une attaque et réussi ou pas selon la margeAttack
-        public static void DealDamage(List<Tuple<int, Character>> characters, Character character, Character target, int margeAttack, int damageDeal)
-        {
-            character.CurrentAttackNumber -= 1;   // On retire -1 point d'attaque
-
-            switch (margeAttack)
-            {
-                //============================ Attaque réussi ===========================================================
-                case int n when n > 0:
-
-                    //============================ Dégats selon type de perso ===========================================================
-
-                    if (target is ICursed && character is IHolyDamage)
-                    {
-                        Console.WriteLine("{0} inflige des dégats sacrés", character.Name);
-                        Console.WriteLine("{0} : -{1} PDV", target.Name, (character as IHolyDamage).DealHolyDamage(damageDeal));
-                        target.CurrentLife -= (character as IHolyDamage).DealHolyDamage(damageDeal);
-                    }
-                    else if (target is IBlessed && character is IUnholyDamage)
-                    {
-                        Console.WriteLine("{0} inflige des dégats impies", character.Name);
-                        Console.WriteLine("{0} : -{1} PDV", target.Name, (character as IUnholyDamage).DealUnholyDamage(damageDeal));
-                        target.CurrentLife -= (character as IUnholyDamage).DealUnholyDamage(damageDeal);
-                    }
-                    else
-                    {
-                        Console.WriteLine("{0} : -{1} PDV", target.Name, damageDeal);
-                        target.CurrentLife -= damageDeal;
-                    }
-
-
-                    //============================ Cas propre au perso ===========================================================
-
-                    // Si on est un Vampire
-                    if (character is Vampire)
-                    {
-                        int damageHeal = damageDeal / 2;
-                        Console.WriteLine("{0} vole de la vie", character.Name);
-                        Console.WriteLine("{0} : +{1} PDV", character.Name, damageHeal);
-                        character.CurrentLife += damageHeal;
-
-                        if (character.CurrentLife >= character.MaximumLife)  // Pour caper la vie
-                        {
-                            character.CurrentLife = character.MaximumLife;
-                        }
-                    }
-
-
-                    //============================ Cas de la cible ===========================================================
-
-                    // Si cible est sensible à la douleur
-                    if (target is IPain)
-                    {
-                        (target as IPain).Pain(damageDeal);     // damageDeal = dégat subis
-                    }
-
-
-                    IsCharacterDead(characters, target);
-                    break;
-
-                //============================ Defense de l'adversaire réussi ===========================================================
-                case int n when n <= 0:
-                    Console.WriteLine("Echec de l'attaque...");
-
-                    if ( !(character.GetType() == typeof(Kamikaze)) )   // On ne peut pas contre-attaquer un Kamikaze
-                    {
-                        if (target.CurrentAttackNumber > 0)    // Si le défenseur qui contre-attaque possède assez de point d'attaque
-                        {
-                            target.ActionCounterAttack(characters, character, margeAttack);  // Defenseur contre attaque
-                        }
-                    }
-
-                    break;
-            }
-        }
-
-        
-
+        // =======================================================================
         // Methode permettant de check s'il y a un personnage qui est mort
+        // =======================================================================
         public static void IsCharacterDead(List<Tuple<int, Character>> characters, Character character)
         {
             int index = 0;

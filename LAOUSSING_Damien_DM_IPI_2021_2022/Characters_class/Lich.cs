@@ -11,5 +11,56 @@ namespace LAOUSSING_Damien_DM_IPI_2021_2022
         }
 
 
+        // =======================================================================
+        // Method override : (Liche) Inflige des dégâts impies
+        // =======================================================================
+        public override void DealDamage(List<Tuple<int, Character>> characters, Character target, int margeAttack, int damageDeal)
+        {
+            CurrentAttackNumber -= 1;   // On retire -1 point d'attaque
+
+            switch (margeAttack)
+            {
+                //============================ Attaque réussi ===========================================================
+                case int n when n > 0:
+
+                    if (target is IBlessed) // Liche : Inflige des dégâts impies
+                    {
+                        Console.WriteLine("{0} inflige des dégats sacrés", Name);
+                        Console.WriteLine("{0} : -{1} PDV", target.Name, (this as IUnholyDamage).DealUnholyDamage(damageDeal));
+                        target.CurrentLife -= (this as IUnholyDamage).DealUnholyDamage(damageDeal);
+                    }
+                    else
+                    {
+                        Console.WriteLine("{0} : -{1} PDV", target.Name, damageDeal);
+                        target.CurrentLife -= damageDeal;
+                    }
+
+                    //============================ Cas de la cible ===========================================================
+
+                    // Si cible est sensible à la douleur
+                    if (target is IPain)
+                    {
+                        (target as IPain).Pain(damageDeal);     // damageDeal = dégat subis
+                    }
+
+                    IsCharacterDead(characters, target);
+                    break;
+
+                //============================ Defense de l'adversaire réussi ===========================================================
+                case int n when n <= 0:
+                    Console.WriteLine("Echec de l'attaque...");
+
+                    if (target.CurrentAttackNumber > 0)    // Si le défenseur qui contre-attaque possède assez de point d'attaque
+                    {
+                        target.ActionCounterAttack(characters, this, margeAttack);  // Defenseur contre attaque
+                    }
+
+                    break;
+            }
+        }
+
+
+
+
     }
 }

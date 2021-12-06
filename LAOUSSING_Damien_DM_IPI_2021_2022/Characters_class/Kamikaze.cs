@@ -29,29 +29,23 @@ namespace LAOUSSING_Damien_DM_IPI_2021_2022
             // Kamikaze : Tous les perso qui se défendent contre une attaque du kamikaze se défendent contre le même jet d’attaque
             sameJet = new Random().Next(1, 101);
 
-
-            (this as IPain).IsSensitiveToPain();
+            (this as IPain).IsSensitiveToPain();    // Check si on est affecté par la douleur
         }
 
 
 
+        // =======================================================================
+        // Method override : (Kamikaze) Même jet d'attaque
+        // =======================================================================
         public override int JetAttack()
         {
             return Attack + sameJet;    // Même jet d'attaque
         }
 
-        public override void ActionAttack(List<Tuple<int, Character>> characters, Character target)
-        {
-            Console.WriteLine("{0} lance Attaque", Name);
 
-            int jetAttack = JetAttack();
-            int targetJetDefense = target.JetDefense();
-            int margeAttack = jetAttack - targetJetDefense;
-            int damageDeal = margeAttack * Damage / 100;
-
-            DealDamage(characters, this, target, margeAttack, damageDeal);
-        }
-
+        // =======================================================================
+        // Method override : (Kamikaze) Le Kamikaze ne peut pas contre-attaquer
+        // =======================================================================
         public override void ActionCounterAttack(List<Tuple<int, Character>> characters, Character target, int margeAttack)
         {
             // Le Kamikaze ne peut pas contre-attaquer
@@ -59,8 +53,46 @@ namespace LAOUSSING_Damien_DM_IPI_2021_2022
         }
 
 
+        // =======================================================================
+        // Method override : (Kamikaze) Les attaques du kamikaze ne sont pas contre-attaquable
+        // =======================================================================
+        public override void DealDamage(List<Tuple<int, Character>> characters, Character target, int margeAttack, int damageDeal)
+        {
+            CurrentAttackNumber -= 1;   // On retire -1 point d'attaque
 
-        // Kamikaze : chaque personnage présent sur le champ de bataille (y compris lui) a 50% de chances d’être ciblé par son attaque
+            switch (margeAttack)
+            {
+                //============================ Attaque réussi ===========================================================
+                case int n when n > 0:
+
+                    Console.WriteLine("{0} : -{1} PDV", target.Name, damageDeal);
+                    target.CurrentLife -= damageDeal;
+
+                    //============================ Cas de la cible ===========================================================
+
+                    // Si cible est sensible à la douleur
+                    if (target is IPain)
+                    {
+                        (target as IPain).Pain(damageDeal);     // damageDeal = dégat subis
+                    }
+
+                    IsCharacterDead(characters, target);
+                    break;
+
+                //============================ Defense de l'adversaire réussi ===========================================================
+                case int n when n <= 0:
+                    Console.WriteLine("Echec de l'attaque...");
+
+                    // Kamikaze : Les attaques du kamikaze ne sont pas contre-attaquable
+
+                    break;
+            }
+        }
+
+
+        // =======================================================================
+        // Method override : (Kamikaze) chaque personnage présent sur le champ de bataille (y compris lui) a 50% de chances d’être ciblé par son attaque
+        // =======================================================================
         public override Character RandomTarget(List<Tuple<int, Character>> characters)
         {
             Character target;
@@ -73,6 +105,8 @@ namespace LAOUSSING_Damien_DM_IPI_2021_2022
 
             return target;
         }
+
+
 
 
     }
