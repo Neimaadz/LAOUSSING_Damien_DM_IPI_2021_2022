@@ -15,6 +15,13 @@ namespace LAOUSSING_Damien_DM_IPI_2021_2022
         }
 
 
+
+        public override int JetDefense()
+        {
+            return 0;   // jet de defense toujours égal à 0
+        }
+
+
         public override void ActionCounterAttack(List<Tuple<int, Character>> characters, Character target, int margeAttack)
         {
             // Le Zombie ne peut pas contre-attaquer
