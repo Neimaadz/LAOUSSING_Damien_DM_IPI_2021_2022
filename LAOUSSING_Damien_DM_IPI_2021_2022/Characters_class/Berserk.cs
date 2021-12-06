@@ -3,8 +3,17 @@ using System.Collections.Generic;
 
 namespace LAOUSSING_Damien_DM_IPI_2021_2022
 {
-    public class Berserk : Character
+    public class Berserk : Character, IAlive
     {
+        private int CountAttackOff = 0;  // Compteur de Round attaque off
+
+        Type IPain.CharacterType { get => GetType(); set => GetType(); }
+        string IPain.Name { get => Name; set => Name = value; }
+        int IPain.CurrentLife { get => CurrentLife; set => CurrentLife = value; }
+        int IPain.CurrentAttackNumber { get => CurrentAttackNumber; set => CurrentAttackNumber = value; }
+        int IPain.TotalAttackNumber { get => TotalAttackNumber; set => TotalAttackNumber = value; }
+        int IPain.CountAttackOff { get => CountAttackOff; set => CountAttackOff = value; }
+
 
         public Berserk(string name) : base(name, 100, 100, 80, 20, 300, 300, 1, 1)
         {
@@ -26,16 +35,20 @@ namespace LAOUSSING_Damien_DM_IPI_2021_2022
                 TotalAttackNumber = 4;
                 CurrentAttackNumber = TotalAttackNumber;
             }
+
+
+            (this as IPain).IsSensitiveToPain();
         }
+
 
 
         public override void ActionAttack(List<Tuple<int, Character>> characters, Character target)
         {
             Console.WriteLine("{0} lance Attaque", Name);
 
-            int jetAttack = Attack + new Random().Next(1, 101);
-            int jetDefense = target.Defense + new Random().Next(1, 101);
-            int margeAttack = jetAttack - jetDefense;
+            int jetAttack = JetAttack();
+            int targetJetDefense = target.JetDefense();
+            int margeAttack = jetAttack - targetJetDefense;
 
             // Ajoute tous les points de vie qu'il a perdu a ses dégâts au moment d’attaquer
             int damageTaken = MaximumLife - CurrentLife;
@@ -48,10 +61,10 @@ namespace LAOUSSING_Damien_DM_IPI_2021_2022
         {
             Console.WriteLine("{0} lance Contre-attaque", Name);
             int bonusAttack = margeAttack * (-1);
-
-            int jetAttack = Attack + bonusAttack + new Random().Next(1, 101);
-            int jetDefense = target.Defense + new Random().Next(1, 101);
-            int margeCounterAttack = jetAttack - jetDefense;
+            
+            int jetAttack = JetAttack() + bonusAttack;
+            int targetJetDefense = target.JetDefense();
+            int margeCounterAttack = jetAttack - targetJetDefense;
 
             // Ajoute tous les points de vie qu'il a perdu a ses dégâts au moment d’attaquer
             int damageTaken = MaximumLife - CurrentLife;

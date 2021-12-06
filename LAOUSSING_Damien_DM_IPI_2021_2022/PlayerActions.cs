@@ -63,6 +63,7 @@ namespace LAOUSSING_Damien_DM_IPI_2021_2022
 
             do
             {
+                Console.WriteLine();
                 Console.Write("Nom de mon personnage : ");
                 characterName = Console.ReadLine();
                 characterName = characterName.Trim();   // On supprime les caractères spéciaux au début et à la fin

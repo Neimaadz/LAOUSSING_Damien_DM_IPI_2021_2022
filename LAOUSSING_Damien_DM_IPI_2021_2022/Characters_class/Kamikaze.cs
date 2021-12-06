@@ -3,12 +3,20 @@ using System.Collections.Generic;
 
 namespace LAOUSSING_Damien_DM_IPI_2021_2022
 {
-    public class Kamikaze : Character
+    public class Kamikaze : Character, IAlive
     {
         private int sameJet = 0; // Variable permettant de stocker le même jet d'attaque (dans OnEachRound)
+        private int CountAttackOff = 0;  // Compteur de Round attaque off
+
+        Type IPain.CharacterType { get => GetType(); set => GetType(); }
+        string IPain.Name { get => Name; set => Name = value; }
+        int IPain.CurrentLife { get => CurrentLife; set => CurrentLife = value; }
+        int IPain.CurrentAttackNumber { get => CurrentAttackNumber; set => CurrentAttackNumber = value; }
+        int IPain.TotalAttackNumber { get => TotalAttackNumber; set => TotalAttackNumber = value; }
+        int IPain.CountAttackOff { get => CountAttackOff; set => CountAttackOff = value; }
 
 
-        public Kamikaze(string name) : base(name, 150, 50, 20, 75, 500, 500, 6, 6)
+        public Kamikaze(string name) : base(name, 50, 125, 20, 75, 500, 500, 6, 6)
         {
         }
 
@@ -20,16 +28,25 @@ namespace LAOUSSING_Damien_DM_IPI_2021_2022
 
             // Kamikaze : Tous les perso qui se défendent contre une attaque du kamikaze se défendent contre le même jet d’attaque
             sameJet = new Random().Next(1, 101);
+
+
+            (this as IPain).IsSensitiveToPain();
         }
 
+
+
+        public override int JetAttack()
+        {
+            return Attack + sameJet;    // Même jet d'attaque
+        }
 
         public override void ActionAttack(List<Tuple<int, Character>> characters, Character target)
         {
             Console.WriteLine("{0} lance Attaque", Name);
 
-            int jetAttack = Attack + sameJet;   // Même jet d'attaque
-            int jetDefense = target.Defense + new Random().Next(1, 101);
-            int margeAttack = jetAttack - jetDefense;
+            int jetAttack = JetAttack();
+            int targetJetDefense = target.JetDefense();
+            int margeAttack = jetAttack - targetJetDefense;
             int damageDeal = margeAttack * Damage / 100;
 
             DealDamage(characters, this, target, margeAttack, damageDeal);

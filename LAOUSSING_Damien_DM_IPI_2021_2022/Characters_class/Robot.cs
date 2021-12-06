@@ -3,8 +3,17 @@ using System.Collections.Generic;
 
 namespace LAOUSSING_Damien_DM_IPI_2021_2022
 {
-    public class Robot : Character
+    public class Robot : Character, IAlive
     {
+        private int CountAttackOff = 0;  // Compteur de Round attaque off
+
+        Type IPain.CharacterType { get => GetType(); set => GetType(); }
+        string IPain.Name { get => Name; set => Name = value; }
+        int IPain.CurrentLife { get => CurrentLife; set => CurrentLife = value; }
+        int IPain.CurrentAttackNumber { get => CurrentAttackNumber; set => CurrentAttackNumber = value; }
+        int IPain.TotalAttackNumber { get => TotalAttackNumber; set => TotalAttackNumber = value; }
+        int IPain.CountAttackOff { get => CountAttackOff; set => CountAttackOff = value; }
+
 
         public Robot(string name) : base(name, 10, 100, 50, 50, 200, 200, 1, 1)
         {
@@ -22,34 +31,21 @@ namespace LAOUSSING_Damien_DM_IPI_2021_2022
             Console.WriteLine("{0} augmente de 50% son Attaque", Name);
             Console.WriteLine("{0} : +{1} Attaque", Name, damageBoost);
             Console.WriteLine();
+
+
+            (this as IPain).IsSensitiveToPain();
         }
 
 
 
-
-        public override void ActionAttack(List<Tuple<int, Character>> characters, Character target)
+        public override int JetAttack()
         {
-            Console.WriteLine("{0} lance Attaque", Name);
-
-            int jetAttack = Attack + 50;    // +50 attaque
-            int jetDefense = target.Defense + new Random().Next(1, 101);
-            int margeAttack = jetAttack - jetDefense;
-            int damageDeal = margeAttack * Damage / 100;
-
-            DealDamage(characters, this, target, margeAttack, damageDeal);
+            return Attack + 50;  // +50 attaque
         }
 
-        public override void ActionCounterAttack(List<Tuple<int, Character>> characters, Character target, int margeAttack)
+        public override int JetDefense()
         {
-            Console.WriteLine("{0} lance Contre-attaque", Name);
-            int bonusAttack = margeAttack * (-1);
-
-            int jetAttack = Attack + bonusAttack + 50;    // +50 attaque
-            int jetDefense = target.Defense + new Random().Next(1, 101);
-            int margeCounterAttack = jetAttack - jetDefense;
-            int damageDeal = margeCounterAttack * Damage / 100;
-
-            DealDamage(characters, this, target, margeCounterAttack, damageDeal);
+            return Defense + 50;  // +50 attaque
         }
 
 

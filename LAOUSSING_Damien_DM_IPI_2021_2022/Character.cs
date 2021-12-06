@@ -46,14 +46,23 @@ namespace LAOUSSING_Damien_DM_IPI_2021_2022
             CurrentAttackNumber = TotalAttackNumber;    // Réinitialisation des points d'actions
         }
 
+        public virtual int JetAttack()
+        {
+            return Attack + new Random().Next(1, 101);
+        }
+
+        public virtual int JetDefense()
+        {
+            return Defense + new Random().Next(1, 101);
+        }
 
         public virtual void ActionAttack(List<Tuple<int, Character>> characters, Character target)
         {
             Console.WriteLine("{0} lance Attaque", Name);
 
-            int jetAttack = Attack + new Random().Next(1, 101);
-            int jetDefense = target.Defense + new Random().Next(1, 101);
-            int margeAttack = jetAttack - jetDefense;
+            int jetAttack = JetAttack();
+            int targetJetDefense = target.JetDefense();
+            int margeAttack = jetAttack - targetJetDefense;
             int damageDeal = margeAttack * Damage / 100;
 
             DealDamage(characters, this, target, margeAttack, damageDeal);
@@ -64,9 +73,9 @@ namespace LAOUSSING_Damien_DM_IPI_2021_2022
             Console.WriteLine("{0} lance Contre-attaque", Name);
             int bonusAttack = margeAttack * (-1);
 
-            int jetAttack = Attack + bonusAttack + new Random().Next(1, 101);
-            int jetDefense = target.Defense + new Random().Next(1, 101);
-            int margeCounterAttack = jetAttack - jetDefense;
+            int jetAttack = JetAttack() + bonusAttack;
+            int targetJetDefense = target.JetDefense();
+            int margeCounterAttack = jetAttack - targetJetDefense;
             int damageDeal = margeCounterAttack * Damage / 100;
 
             DealDamage(characters, this, target, margeCounterAttack, damageDeal);
@@ -152,7 +161,7 @@ namespace LAOUSSING_Damien_DM_IPI_2021_2022
                     // Si cible est sensible à la douleur
                     if (target is IPain)
                     {
-                        (target as IPain).Pain();
+                        (target as IPain).Pain(damageDeal);     // damageDeal = dégat subis
                     }
 
 
