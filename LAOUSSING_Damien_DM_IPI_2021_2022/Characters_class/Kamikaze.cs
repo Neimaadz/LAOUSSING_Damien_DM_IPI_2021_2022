@@ -59,5 +59,21 @@ namespace LAOUSSING_Damien_DM_IPI_2021_2022
         }
 
 
+
+        // Kamikaze : chaque personnage présent sur le champ de bataille (y compris lui) a 50% de chances d’être ciblé par son attaque
+        public override Character RandomTarget(List<Tuple<int, Character>> characters)
+        {
+            Character target;
+            int numbCharactersRemaining = characters.Count; // Nombre de personnage restant
+            int index = 0;
+
+            index = new Random().Next(0, numbCharactersRemaining);
+
+            target = characters[index].Item2;
+
+            return target;
+        }
+
+
     }
 }

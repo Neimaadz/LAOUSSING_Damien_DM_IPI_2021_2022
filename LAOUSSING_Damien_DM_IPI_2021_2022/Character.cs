@@ -83,6 +83,27 @@ namespace LAOUSSING_Damien_DM_IPI_2021_2022
 
 
 
+        // Retourne une cible aléatoire
+        public virtual Character RandomTarget(List<Tuple<int, Character>> characters)
+        {
+            Character target;
+            int numbCharactersRemaining = characters.Count; // Nombre de personnage restant
+            int index = 0;
+
+            // Afin d'éviter de s'auto attaquer
+            do
+            {
+                index = new Random().Next(0, numbCharactersRemaining);
+            }
+            while (characters[index].Item2.Equals(this));  // Tant que c'est le même perso
+
+            target = characters[index].Item2;
+
+            return target;
+        }
+
+
+
 
 
 

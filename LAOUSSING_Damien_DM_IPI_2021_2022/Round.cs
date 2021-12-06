@@ -64,7 +64,7 @@ namespace LAOUSSING_Damien_DM_IPI_2021_2022
                     while (currentCharacter.CurrentAttackNumber > 0 && currentCharacter.CurrentLife > 0 && Battle.HaveWinner(Characters) == false)
                     {
                         int indexTarget = 0;
-                        Character target = RandomTarget(currentCharacter);
+                        Character target = currentCharacter.RandomTarget(Characters);
 
                         // permet de récup l'index de la cible
                         Characters.ForEach(c => { if (c.Item2 == target) indexTarget = Characters.IndexOf(c); });
@@ -117,81 +117,6 @@ namespace LAOUSSING_Damien_DM_IPI_2021_2022
         /****************************************************************************************************************************
          *********************************                     FONCTION DIVERS                          *****************************
          ****************************************************************************************************************************/
-
-
-        // =======================================================================
-        // Method : return une cible aléatoire parmi la liste de personnage
-        // =======================================================================
-        private Character RandomTarget(Character character)
-        {
-            Character target;
-            int numbCharactersRemaining = Characters.Count; // Nombre de personnage restant
-            int index = 0;
-
-            switch (character.GetType())
-            {
-                // ================= Prête : cible en priorité les Mort-Vivants =================
-                case Type type when type == typeof(Priest):
-
-                    List<int> indexUndeadCharacters = new List<int>();  // Liste contenant la position des Mort-vivants parmi la liste de persos
-
-                    for (int i = 0; i < numbCharactersRemaining; i++)
-                    {
-                        if (Characters[i].Item2 is IUndead)  // S'il y a un Mort-vivant parmi la liste des perso
-                        {
-                            indexUndeadCharacters.Add(i);   // On les ajoutes dans une liste
-                        }
-                    }
-
-                    if (indexUndeadCharacters.Count > 0)  // S'il reste des Mort-Vivants;
-                    {
-                        int numbUndeadCharactersRemaining = indexUndeadCharacters.Count; // Nombre de Mort-vivant restant
-                        index = new Random().Next(0, numbUndeadCharactersRemaining);
-
-                        // Grâce à notre liste contenant la position des Mort-vivant, on choisi la position parmi la liste de persos
-                        target = Characters[indexUndeadCharacters[index]].Item2;
-
-                        break;
-                    }
-                    else
-                    {
-                        // Afin d'éviter de s'auto attaquer
-                        do
-                        {
-                            index = new Random().Next(0, numbCharactersRemaining);
-                        }
-                        while (Characters[index].Item2.Equals(character));  // Tant que c'est le même perso
-
-                        target = Characters[index].Item2;
-
-                        break;
-                    }
-
-                // ================= Kamikaze : chaque perso peut être ciblé (même lui-même) =================
-                case Type type when type == typeof(Kamikaze):
-
-                    index = new Random().Next(0, numbCharactersRemaining);
-                    target = Characters[index].Item2;
-
-                    break;
-
-                // ================= Default =================
-                default:
-
-                    //  Afin d'éviter de s'auto attaquer
-                    do
-                    {
-                        index = new Random().Next(0, numbCharactersRemaining);
-                    }
-                    while (Characters[index].Item2.Equals(character));  // Tant que c'est le même perso
-
-                    target = Characters[index].Item2;
-
-                    break;
-            }
-            return target;
-
-        }
 
 
         // =======================================================================
