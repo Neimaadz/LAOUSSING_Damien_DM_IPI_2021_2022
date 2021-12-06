@@ -37,7 +37,7 @@ namespace LAOUSSING_Damien_DM_IPI_2021_2022
             }
 
 
-            (this as IPain).IsSensitiveToPain();
+            // Pas de check IsSensitiveToPain() : Le berseker n’est pas affecté par la douleur
         }
 
 
