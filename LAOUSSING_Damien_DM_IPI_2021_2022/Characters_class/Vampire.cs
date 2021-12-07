@@ -24,7 +24,7 @@ namespace LAOUSSING_Damien_DM_IPI_2021_2022
                 case int n when n > 0:
 
                     // Dégats communs
-                    CommonDamage(target, damageDeal);
+                    DealCommonDamage(target, damageDeal);
 
                     // Vampire : se soigne de la moitié des dégâts qu’il inflige
                     StealLife(damageDeal);

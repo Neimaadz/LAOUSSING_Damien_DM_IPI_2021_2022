@@ -11,11 +11,11 @@ namespace LAOUSSING_Damien_DM_IPI_2021_2022
             if (target is ICursed)
             {
                 Console.WriteLine("{0} inflige des dégats sacrés", Name);
-                Character.CommonDamage(target, damageDeal * 2); // dégats communs x2
+                Character.DealCommonDamage(target, damageDeal * 2); // dégats communs x2
             }
             else
             {
-                Character.CommonDamage(target, damageDeal);
+                Character.DealCommonDamage(target, damageDeal);
             }
         }
 

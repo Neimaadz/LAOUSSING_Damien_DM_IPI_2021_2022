@@ -97,7 +97,7 @@ namespace LAOUSSING_Damien_DM_IPI_2021_2022
                 case int n when n > 0:
 
                     // Dégats communs
-                    CommonDamage(target, damageDeal);
+                    DealCommonDamage(target, damageDeal);
 
                     //============================ Cas de la cible ===========================================================
 
@@ -175,7 +175,7 @@ namespace LAOUSSING_Damien_DM_IPI_2021_2022
         // =======================================================================
         // Methode : Inflige des dégats communs
         // =======================================================================
-        public static void CommonDamage(Character target, int damageDeal)
+        public static void DealCommonDamage(Character target, int damageDeal)
         {
             Console.WriteLine("{0} : -{1} PDV", target.Name, damageDeal);
             target.CurrentLife -= damageDeal;
