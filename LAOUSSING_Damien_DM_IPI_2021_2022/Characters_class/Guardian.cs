@@ -7,6 +7,8 @@ namespace LAOUSSING_Damien_DM_IPI_2021_2022
     {
         private int CountAttackOff = 0;  // Compteur de Round attaque off
 
+        string IHolyDamage.Name { get => Name; set => Name = value; }
+
         Type IPain.CharacterType { get => GetType(); set => GetType(); }
         string IPain.Name { get => Name; set => Name = value; }
         int IPain.CurrentLife { get => CurrentLife; set => CurrentLife = value; }
@@ -58,17 +60,8 @@ namespace LAOUSSING_Damien_DM_IPI_2021_2022
                 //============================ Attaque réussi ===========================================================
                 case int n when n > 0:
 
-                    if (target is ICursed)  // Gardien : Inflige des dégâts sacrés
-                    {
-                        Console.WriteLine("{0} inflige des dégats sacrés", Name);
-                        Console.WriteLine("{0} : -{1} PDV", target.Name, (this as IHolyDamage).DealHolyDamage(damageDeal));
-                        target.CurrentLife -= (this as IHolyDamage).DealHolyDamage(damageDeal);
-                    }
-                    else
-                    {
-                        Console.WriteLine("{0} : -{1} PDV", target.Name, damageDeal);
-                        target.CurrentLife -= damageDeal;
-                    }
+                    // Gardien : Inflige des dégâts sacrés
+                    (this as IHolyDamage).DealHolyDamage(target, damageDeal);
 
                     //============================ Cas de la cible ===========================================================
 

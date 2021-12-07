@@ -23,19 +23,11 @@ namespace LAOUSSING_Damien_DM_IPI_2021_2022
                 //============================ Attaque réussi ===========================================================
                 case int n when n > 0:
 
-                    Console.WriteLine("{0} : -{1} PDV", target.Name, damageDeal);
-                    target.CurrentLife -= damageDeal;
+                    // Dégats communs
+                    CommonDamage(target, damageDeal);
 
                     // Vampire : se soigne de la moitié des dégâts qu’il inflige
-                    int damageHeal = damageDeal / 2;
-                    Console.WriteLine("{0} vole de la vie", Name);
-                    Console.WriteLine("{0} : +{1} PDV", Name, damageHeal);
-                    CurrentLife += damageHeal;
-
-                    if (CurrentLife >= MaximumLife)  // Pour caper la vie
-                    {
-                        CurrentLife = MaximumLife;
-                    }
+                    StealLife(damageDeal);
 
                     //============================ Cas de la cible ===========================================================
 
@@ -58,6 +50,23 @@ namespace LAOUSSING_Damien_DM_IPI_2021_2022
                     }
 
                     break;
+            }
+        }
+
+
+        // =======================================================================
+        // Method : (Vampire) Se soigne de la moitié des dégâts qu’il inflige
+        // =======================================================================
+        private void StealLife(int damageDeal)
+        {
+            int damageHeal = damageDeal / 2;
+            Console.WriteLine("{0} vole de la vie", Name);
+            Console.WriteLine("{0} : +{1} PDV", Name, damageHeal);
+            CurrentLife += damageHeal;
+
+            if (CurrentLife >= MaximumLife)  // Pour caper la vie
+            {
+                CurrentLife = MaximumLife;
             }
         }
 

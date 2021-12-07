@@ -5,6 +5,8 @@ namespace LAOUSSING_Damien_DM_IPI_2021_2022
 {
     public class Lich : Character, IUndead, IUnholyDamage
     {
+        string IUnholyDamage.Name { get => Name; set => Name = value; }
+
 
         public Lich(string name) : base(name, 75, 125, 80, 50, 125, 125, 3, 3)
         {
@@ -23,17 +25,8 @@ namespace LAOUSSING_Damien_DM_IPI_2021_2022
                 //============================ Attaque réussi ===========================================================
                 case int n when n > 0:
 
-                    if (target is IBlessed) // Liche : Inflige des dégâts impies
-                    {
-                        Console.WriteLine("{0} inflige des dégats sacrés", Name);
-                        Console.WriteLine("{0} : -{1} PDV", target.Name, (this as IUnholyDamage).DealUnholyDamage(damageDeal));
-                        target.CurrentLife -= (this as IUnholyDamage).DealUnholyDamage(damageDeal);
-                    }
-                    else
-                    {
-                        Console.WriteLine("{0} : -{1} PDV", target.Name, damageDeal);
-                        target.CurrentLife -= damageDeal;
-                    }
+                    // Liche : Inflige des dégâts impies
+                    (this as IUnholyDamage).DealUnholyDamage(target, damageDeal);
 
                     //============================ Cas de la cible ===========================================================
 

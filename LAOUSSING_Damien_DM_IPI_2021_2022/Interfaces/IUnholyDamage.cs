@@ -3,9 +3,23 @@ namespace LAOUSSING_Damien_DM_IPI_2021_2022
 {
     public interface IUnholyDamage
     {
-        public int DealUnholyDamage(int damageDeal)
+        public string Name { get; set; }
+
+
+        public void DealUnholyDamage(Character target, int damageDeal)
         {
-            return damageDeal * 2;
+            if (target is IBlessed)
+            {
+                Console.WriteLine("{0} inflige des dégats impies", Name);
+                Character.CommonDamage(target, damageDeal * 2); // dégats communs x2
+            }
+            else
+            {
+                Character.CommonDamage(target, damageDeal);
+            }
         }
+
+
+
     }
 }

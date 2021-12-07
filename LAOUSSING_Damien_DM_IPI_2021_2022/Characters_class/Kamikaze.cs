@@ -65,8 +65,8 @@ namespace LAOUSSING_Damien_DM_IPI_2021_2022
                 //============================ Attaque réussi ===========================================================
                 case int n when n > 0:
 
-                    Console.WriteLine("{0} : -{1} PDV", target.Name, damageDeal);
-                    target.CurrentLife -= damageDeal;
+                    // Dégats communs
+                    CommonDamage(target, damageDeal);
 
                     //============================ Cas de la cible ===========================================================
 
