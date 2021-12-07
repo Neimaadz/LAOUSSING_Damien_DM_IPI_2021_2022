@@ -85,7 +85,7 @@ namespace LAOUSSING_Damien_DM_IPI_2021_2022
 
 
         // =======================================================================
-        // Methode : permettant de savoir si une attaque et réussi ou pas selon la margeAttack
+        // Methode : permettant de savoir si une attaque est réussi ou pas selon la margeAttack
         // =======================================================================
         public virtual void DealDamage(List<Tuple<int, Character>> characters, Character target, int margeAttack, int damageDeal)
         {
