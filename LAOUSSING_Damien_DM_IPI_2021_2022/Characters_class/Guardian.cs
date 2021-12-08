@@ -32,7 +32,7 @@ namespace LAOUSSING_Damien_DM_IPI_2021_2022
 
 
         // =======================================================================
-        // Method override : (Gardien) Bonus contre-attaque doublé
+        // (Gardien) Bonus contre-attaque doublé
         // =======================================================================
         public override void ActionCounterAttack(List<Tuple<int, Character>> characters, Character target, int margeAttack)
         {
@@ -49,7 +49,7 @@ namespace LAOUSSING_Damien_DM_IPI_2021_2022
 
 
         // =======================================================================
-        // Method override : (Gardien) Inflige des dégâts sacrés
+        // (Gardien) Inflige des dégâts sacrés
         // =======================================================================
         public override void DealDamage(List<Tuple<int, Character>> characters, Character target, int margeAttack, int damageDeal)
         {

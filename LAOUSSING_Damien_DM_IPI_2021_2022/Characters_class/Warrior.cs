@@ -29,6 +29,28 @@ namespace LAOUSSING_Damien_DM_IPI_2021_2022
 
 
 
+        // =======================================================================
+        // (Guerrier) perd la possibilité d’attaquer durant le tour actuel. Il ne peut pas être affecté par la douleur plus longtemps
+        // =======================================================================
+        void IPain.Pain(int damageTaken)
+        {
+            if (damageTaken > CurrentLife)
+            {
+                int percentChance = ((damageTaken - CurrentLife) * 2 / (CurrentLife + damageTaken)) * 100;
+                int randomValue = new Random().Next(100);
+
+                if (randomValue < percentChance)
+                {
+                    Console.WriteLine("{0} est affaiblit durant ce round en cours !", Name);
+                    CountAttackOff = 1;
+                    CurrentAttackNumber = 0;
+
+                }
+            }
+        }
+
+
+
 
     }
 }

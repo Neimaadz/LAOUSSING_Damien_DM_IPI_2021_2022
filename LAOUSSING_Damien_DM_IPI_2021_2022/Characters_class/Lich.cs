@@ -14,7 +14,7 @@ namespace LAOUSSING_Damien_DM_IPI_2021_2022
 
 
         // =======================================================================
-        // Method override : (Liche) Inflige des dégâts impies
+        // (Liche) Inflige des dégâts impies
         // =======================================================================
         public override void DealDamage(List<Tuple<int, Character>> characters, Character target, int margeAttack, int damageDeal)
         {

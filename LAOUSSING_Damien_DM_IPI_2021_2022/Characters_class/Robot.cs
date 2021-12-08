@@ -49,7 +49,7 @@ namespace LAOUSSING_Damien_DM_IPI_2021_2022
 
 
         // =======================================================================
-        // Method override : (Robot) Pas de jets aléatoires. Il suffit d’ajouter 50 à la caractéristique
+        // (Robot) Pas de jets aléatoires. Il suffit d’ajouter 50 à la caractéristique
         // =======================================================================
         public override int JetInitiative()
         {

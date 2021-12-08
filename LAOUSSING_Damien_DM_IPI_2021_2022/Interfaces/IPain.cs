@@ -21,56 +21,36 @@ namespace LAOUSSING_Damien_DM_IPI_2021_2022
 
                 if (randomValue < percentChance)
                 {
-                    // Cas Berseker : Le berseker n’est pas affecté par la douleur
-                    if (CharacterType == typeof(Berserk))
+                    int roundAttackOff = new Random().Next(0, 3);
+
+                    // Si nouveau résultat est supérieur à la souffrance actuelle
+                    if (roundAttackOff > CountAttackOff-1)
                     {
-                        Console.WriteLine("{0} est insensible à la douleur !", Name);
-                    }
-                    else
-                    {
-                        // Cas Guerrier : perd la possibilité d’attaquer durant le tour actuel. Il ne peut pas être affecté par la douleur plus longtemps
-                        if ( CharacterType == typeof(Warrior) )
+                        switch (roundAttackOff)
                         {
-                            CountAttackOff = 1;
-                            Console.WriteLine("{0} est affaiblit durant ce round en cours !", Name);
+                            case 0: // ne peut pas attaquer durant le round en cours
+                                CountAttackOff = 1;
+                                Console.WriteLine("{0} est affaiblit durant ce round en cours !", Name);
+
+                                break;
+                            case 1: // ne peut pas attaquer durant ce round et le suivant
+                                CountAttackOff = 2;
+                                Console.WriteLine("{0} est affaiblit durant ce round et le suivant !", Name);
+
+                                break;
+                            case 2: // ne peut pas attaquer durant ce round et les 2 suivant
+                                CountAttackOff = 3;
+                                Console.WriteLine("{0} est affaiblit durant ce round et les 2 suivant !", Name);
+
+                                break;
                         }
-                        // Cas général
-                        else
-                        {
-                            int roundAttackOff = new Random().Next(0, 3);
-
-                            // Si nouveau résultat est supérieur à la souffrance actuelle
-                            if (roundAttackOff > CountAttackOff-1)
-                            {
-                                switch (roundAttackOff)
-                                {
-                                    case 0: // ne peut pas attaquer durant le round en cours
-                                        CountAttackOff = 1;
-                                        Console.WriteLine("{0} est affaiblit durant ce round en cours !", Name);
-
-                                        break;
-                                    case 1: // ne peut pas attaquer durant ce round et le suivant
-                                        CountAttackOff = 2;
-                                        Console.WriteLine("{0} est affaiblit durant ce round et le suivant !", Name);
-
-                                        break;
-                                    case 2: // ne peut pas attaquer durant ce round et les 2 suivant
-                                        CountAttackOff = 3;
-                                        Console.WriteLine("{0} est affaiblit durant ce round et les 2 suivant !", Name);
-
-                                        break;
-                                }
-                            }
-
-
-                        }
-                        CurrentAttackNumber = 0;
                     }
+                    CurrentAttackNumber = 0;
 
                 }
             }
-
         }
+
 
         // Methode appeler à chaque début de round
         public bool IsSensitiveToPain()

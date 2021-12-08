@@ -33,8 +33,9 @@ namespace LAOUSSING_Damien_DM_IPI_2021_2022
 
 
 
+
         // =======================================================================
-        // (Berserk) TotalAttackNumber passe à 4 si sa vie est en dessous de 50%
+        // (Berseker) TotalAttackNumber passe à 4 si sa vie est en dessous de 50%
         // =======================================================================
         private void IncreaseAttackNumber()
         {
@@ -51,7 +52,7 @@ namespace LAOUSSING_Damien_DM_IPI_2021_2022
 
 
         // =======================================================================
-        // Method override : (Berseker) Ajoute tous les points de vie qu'il a perdu a ses dégâts au moment d’attaquer
+        // (Berseker) Ajoute tous les points de vie qu'il a perdu a ses dégâts au moment d’attaquer
         // =======================================================================
         public override void ActionAttack(List<Tuple<int, Character>> characters, Character target)
         {
@@ -66,6 +67,15 @@ namespace LAOUSSING_Damien_DM_IPI_2021_2022
             int damageDeal = margeAttack * Damage / 100;
 
             DealDamage(characters, target, margeAttack, damageDeal);
+        }
+
+
+        // =======================================================================
+        // (Berseker) Le berseker n’est pas affecté par la douleur
+        // =======================================================================
+        void IPain.Pain(int damageTaken)
+        {
+            Console.WriteLine("{0} est insensible à la douleur !", Name);
         }
 
 

@@ -36,7 +36,7 @@ namespace LAOUSSING_Damien_DM_IPI_2021_2022
 
 
         // =======================================================================
-        // (Priest) Se soigne de 10% de MaximumLife au début de chaque tour
+        // (Prêtre) Se soigne de 10% de MaximumLife au début de chaque tour
         // =======================================================================
         private void Heal()
         {
@@ -56,7 +56,7 @@ namespace LAOUSSING_Damien_DM_IPI_2021_2022
 
 
         // =======================================================================
-        // Method override : (Prêtre) Inflige des dégâts sacrés
+        // (Prêtre) Inflige des dégâts sacrés
         // =======================================================================
         public override void DealDamage(List<Tuple<int, Character>> characters, Character target, int margeAttack, int damageDeal)
         {
@@ -96,7 +96,7 @@ namespace LAOUSSING_Damien_DM_IPI_2021_2022
 
 
         // =======================================================================
-        // Method override : (Prêtre) cible en priorité les morts-vivants
+        // (Prêtre) cible en priorité les morts-vivants
         // =======================================================================
         public override Character RandomTarget(List<Tuple<int, Character>> characters)
         {

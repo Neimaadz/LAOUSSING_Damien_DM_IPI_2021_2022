@@ -120,7 +120,7 @@ namespace LAOUSSING_Damien_DM_IPI_2021_2022
 
 
         // =======================================================================
-        // Method : met à jour l'indice selon cas précis
+        // Met à jour l'indice selon cas précis
         // =======================================================================
         private int UpdateIndex(Character currentCharacter, Character target, int i, int indexTarget)
         {
@@ -155,7 +155,7 @@ namespace LAOUSSING_Damien_DM_IPI_2021_2022
 
 
         // =======================================================================
-        // Method : affiche un message si un personnage ne peux plus attaquer
+        // Affiche un message si un personnage ne peux plus attaquer
         // =======================================================================
         private void AlertCantAttack(Character currentCharacter)
         {
@@ -168,7 +168,7 @@ namespace LAOUSSING_Damien_DM_IPI_2021_2022
 
 
         // =======================================================================
-        // Method : affiche la liste des personnages restants
+        // Affiche la liste des personnages restants
         // =======================================================================
         public static void AlertCharactersRemaining(List<Tuple<int, Character>> characters, Character playerCharacter)
         {
@@ -189,7 +189,7 @@ namespace LAOUSSING_Damien_DM_IPI_2021_2022
 
 
         // =======================================================================
-        // Method : affiche un message alert de la mort du personnage du JOUEUR
+        // Affiche un message alert de la mort du personnage du JOUEUR
         // =======================================================================
         private void AlertPlayerCharacterDead()
         {
@@ -203,7 +203,7 @@ namespace LAOUSSING_Damien_DM_IPI_2021_2022
 
 
         // =======================================================================
-        // Method : affiche resume du round
+        // Affiche resume du round
         // =======================================================================
         public void AlertResumeRound()
         {

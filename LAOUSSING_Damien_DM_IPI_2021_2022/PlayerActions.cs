@@ -16,7 +16,7 @@ namespace LAOUSSING_Damien_DM_IPI_2021_2022
 
 
         // =======================================================================
-        // Method : return un type de personnage choisi par JOUEUR
+        // Return un type de personnage choisi par JOUEUR
         // =======================================================================
         public static Type ChooseCharacterType(List<Tuple<int, Type>> listTypes)
         {
@@ -54,7 +54,7 @@ namespace LAOUSSING_Damien_DM_IPI_2021_2022
 
 
         // =======================================================================
-        // Method : return le nom du personnage choisi par le JOUEUR
+        // Return le nom du personnage choisi par le JOUEUR
         // =======================================================================
         public static string ChooseCharacterName(List<Tuple<int, Character>> characters)
         {
@@ -110,7 +110,7 @@ namespace LAOUSSING_Damien_DM_IPI_2021_2022
 
 
         // =======================================================================
-        // Method : return une cible choisi par le JOUEUR parmi la liste de personnage
+        // Return une cible choisi par le JOUEUR parmi la liste de personnage
         // =======================================================================
         public static Character ChooseTarget(List<Tuple<int, Character>> characters, Character playerCharacter)
         {
@@ -158,7 +158,7 @@ namespace LAOUSSING_Damien_DM_IPI_2021_2022
 
 
         // =======================================================================
-        // Method : menu de l'utilisateur : appuyer sur Espace
+        // Menu de l'utilisateur : appuyer sur Espace
         // =======================================================================
         public static void PressSpaceContinue()
         {
@@ -179,7 +179,7 @@ namespace LAOUSSING_Damien_DM_IPI_2021_2022
 
 
         // =======================================================================
-        // Method : menu de l'utilisateur : appuyer Y ou N
+        // Menu de l'utilisateur : appuyer Y ou N
         // =======================================================================
         public static bool PressYorN()
         {
@@ -208,7 +208,7 @@ namespace LAOUSSING_Damien_DM_IPI_2021_2022
 
 
         // =======================================================================
-        // Method : menu de l'utilisateur : continuer de jouer ou de quitter
+        // Menu de l'utilisateur : continuer de jouer ou de quitter
         // =======================================================================
         public static bool ContinueOrQuit()
         {

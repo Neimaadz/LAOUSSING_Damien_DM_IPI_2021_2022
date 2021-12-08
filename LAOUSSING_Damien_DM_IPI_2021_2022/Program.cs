@@ -135,7 +135,7 @@ namespace LAOUSSING_Damien_DM_IPI_2021_2022
 
 
         // =======================================================================
-        // Method : select game mode
+        // Select game mode
         // =======================================================================
         public static int GameMode()
         {
@@ -163,7 +163,7 @@ namespace LAOUSSING_Damien_DM_IPI_2021_2022
 
 
         // =======================================================================
-        // Method : return number of characters
+        // Return number of characters
         // =======================================================================
         public static int NumberCharacters()
         {
@@ -195,7 +195,7 @@ namespace LAOUSSING_Damien_DM_IPI_2021_2022
 
 
         // =======================================================================
-        // Method : return a list of random characters
+        // Return a list of random characters
         // =======================================================================
         public static List<Tuple<int, Character>> RandomListCharacters(List<Tuple<int, Type>> listTypes, int numberCharacters, int gameMode)
         {
@@ -225,7 +225,7 @@ namespace LAOUSSING_Damien_DM_IPI_2021_2022
 
 
         // =======================================================================
-        // Method : return a list of custom characters
+        // Return a list of custom characters
         // =======================================================================
         public static List<Tuple<int, Character>> CustomListCharacters(List<Tuple<int, Type>> listTypes, int numberCharacters, int gameMode)
         {

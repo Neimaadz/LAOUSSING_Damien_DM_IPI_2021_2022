@@ -89,7 +89,7 @@ namespace LAOUSSING_Damien_DM_IPI_2021_2022
 
 
         // =======================================================================
-        // Methode : permettant de savoir si une attaque est réussi ou pas selon la margeAttack
+        // Permet de savoir si une attaque est réussi ou pas selon la margeAttack
         // =======================================================================
         public virtual void DealDamage(List<Tuple<int, Character>> characters, Character target, int margeAttack, int damageDeal)
         {
@@ -177,7 +177,7 @@ namespace LAOUSSING_Damien_DM_IPI_2021_2022
 
 
         // =======================================================================
-        // Methode : Inflige des dégats communs
+        // Inflige des dégats communs
         // =======================================================================
         public static void DealCommonDamage(Character target, int damageDeal)
         {
@@ -187,7 +187,7 @@ namespace LAOUSSING_Damien_DM_IPI_2021_2022
 
 
         // =======================================================================
-        // Methode permettant de check s'il y a un personnage qui est mort
+        // Permet de check s'il y a un personnage qui est mort
         // =======================================================================
         public static void IsCharacterDead(List<Tuple<int, Character>> characters, Character character)
         {

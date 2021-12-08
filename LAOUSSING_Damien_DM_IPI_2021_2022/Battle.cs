@@ -105,7 +105,7 @@ namespace LAOUSSING_Damien_DM_IPI_2021_2022
 
 
         // =======================================================================
-        // Method : return true si on a un gagnant
+        // Return true si on a un gagnant
         // =======================================================================
         public static bool HaveWinner(List<Tuple<int, Character>> Characters)
         {
@@ -118,7 +118,7 @@ namespace LAOUSSING_Damien_DM_IPI_2021_2022
 
 
         // =======================================================================
-        // Method : affiche un message du personnage qui a gagné
+        // Affiche un message du personnage qui a gagné
         // =======================================================================
         public static void AlertHaveWinner(List<Tuple<int, Character>> Characters)
         {

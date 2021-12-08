@@ -36,7 +36,7 @@ namespace LAOUSSING_Damien_DM_IPI_2021_2022
 
 
         // =======================================================================
-        // Method override : (Kamikaze) Même jet d'attaque
+        // (Kamikaze) Même jet d'attaque
         // =======================================================================
         public override int JetAttack()
         {
@@ -45,7 +45,7 @@ namespace LAOUSSING_Damien_DM_IPI_2021_2022
 
 
         // =======================================================================
-        // Method override : (Kamikaze) Le Kamikaze ne peut pas contre-attaquer
+        // (Kamikaze) Le Kamikaze ne peut pas contre-attaquer
         // =======================================================================
         public override void ActionCounterAttack(List<Tuple<int, Character>> characters, Character target, int margeAttack)
         {
@@ -55,7 +55,7 @@ namespace LAOUSSING_Damien_DM_IPI_2021_2022
 
 
         // =======================================================================
-        // Method override : (Kamikaze) Les attaques du kamikaze ne sont pas contre-attaquable
+        // (Kamikaze) Les attaques du kamikaze ne sont pas contre-attaquable
         // =======================================================================
         public override void DealDamage(List<Tuple<int, Character>> characters, Character target, int margeAttack, int damageDeal)
         {
@@ -92,7 +92,7 @@ namespace LAOUSSING_Damien_DM_IPI_2021_2022
 
 
         // =======================================================================
-        // Method override : (Kamikaze) chaque personnage présent sur le champ de bataille (y compris lui) a 50% de chances d’être ciblé par son attaque
+        // (Kamikaze) chaque personnage présent sur le champ de bataille (y compris lui) a 50% de chances d’être ciblé par son attaque
         // =======================================================================
         public override Character RandomTarget(List<Tuple<int, Character>> characters)
         {

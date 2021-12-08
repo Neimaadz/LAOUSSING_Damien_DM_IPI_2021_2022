@@ -12,7 +12,7 @@ namespace LAOUSSING_Damien_DM_IPI_2021_2022
 
 
         // =======================================================================
-        // Method override : (Vampire) Se soigne de la moitié des dégâts qu’il inflige
+        // (Vampire) Se soigne de la moitié des dégâts qu’il inflige
         // =======================================================================
         public override void DealDamage(List<Tuple<int, Character>> characters, Character target, int margeAttack, int damageDeal)
         {
@@ -55,7 +55,7 @@ namespace LAOUSSING_Damien_DM_IPI_2021_2022
 
 
         // =======================================================================
-        // Method : (Vampire) Se soigne de la moitié des dégâts qu’il inflige
+        // (Vampire) Se soigne de la moitié des dégâts qu’il inflige
         // =======================================================================
         private void StealLife(int damageDeal)
         {
