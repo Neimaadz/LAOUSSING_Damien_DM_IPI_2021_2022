@@ -26,6 +26,18 @@ namespace LAOUSSING_Damien_DM_IPI_2021_2022
             CurrentAttackNumber = TotalAttackNumber;    // Réinitialisation des points d'actions
 
             // Berserk : TotalAttackNumber passe à 4 si sa vie est en dessous de 50%
+            IncreaseAttackNumber();
+
+            // Pas de check (this as IPain).IsSensitiveToPain() : Le berseker n’est pas affecté par la douleur
+        }
+
+
+
+        // =======================================================================
+        // (Berserk) TotalAttackNumber passe à 4 si sa vie est en dessous de 50%
+        // =======================================================================
+        private void IncreaseAttackNumber()
+        {
             if (CurrentLife < (MaximumLife * 0.5))  // inférieur à 50% de sa vie max
             {
                 Console.WriteLine("{0} entre dans l'état Berseker", Name);
@@ -35,10 +47,7 @@ namespace LAOUSSING_Damien_DM_IPI_2021_2022
                 TotalAttackNumber = 4;
                 CurrentAttackNumber = TotalAttackNumber;
             }
-
-            // Pas de check (this as IPain).IsSensitiveToPain() : Le berseker n’est pas affecté par la douleur
         }
-
 
 
         // =======================================================================

@@ -26,25 +26,44 @@ namespace LAOUSSING_Damien_DM_IPI_2021_2022
             CurrentAttackNumber = TotalAttackNumber;    // Réinitialisation des points d'actions
 
             // Robot : Au début de chaque round, le robot augmente son attaque de 50%
-            int damageBoost = (int)(Attack * 0.5);  // +50% attaque
-            Attack += damageBoost;
-            Console.WriteLine("{0} augmente de 50% son Attaque", Name);
-            Console.WriteLine("{0} : +{1} Attaque", Name, damageBoost);
-            Console.WriteLine();
+            IncreaseDamage();
 
             (this as IPain).IsSensitiveToPain();    // Check si on est affecté par la douleur
         }
 
 
 
+        // =======================================================================
+        // (Robot) Au début de chaque round, le robot augmente son attaque de 50%
+        // =======================================================================
+        private void IncreaseDamage()
+        {
+            int increaseDamage = (int)(Attack * 0.5);  // +50% attaque
+
+            Console.WriteLine("{0} augmente de 50% son Attaque", Name);
+            Console.WriteLine("{0} : +{1} Attaque", Name, increaseDamage);
+            Console.WriteLine();
+
+            Attack += increaseDamage;
+        }
+
+
+        // =======================================================================
+        // Method override : (Robot) Pas de jets aléatoires. Il suffit d’ajouter 50 à la caractéristique
+        // =======================================================================
+        public override int JetInitiative()
+        {
+            return Initiative + 50;
+        }
+
         public override int JetAttack()
         {
-            return Attack + 50;  // +50 attaque
+            return Attack + 50;
         }
 
         public override int JetDefense()
         {
-            return Defense + 50;  // +50 attaque
+            return Defense + 50;
         }
 
 

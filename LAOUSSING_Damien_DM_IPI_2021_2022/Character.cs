@@ -47,6 +47,10 @@ namespace LAOUSSING_Damien_DM_IPI_2021_2022
         }
 
 
+        public virtual int JetInitiative()
+        {
+            return Initiative + new Random().Next(1, 101);
+        }
 
         public virtual int JetAttack()
         {

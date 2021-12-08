@@ -26,7 +26,8 @@ namespace LAOUSSING_Damien_DM_IPI_2021_2022
         {
             CurrentAttackNumber = TotalAttackNumber;    // Réinitialisation des points d'actions
 
-            // Kamikaze : Tous les perso qui se défendent contre une attaque du kamikaze se défendent contre le même jet d’attaque
+            // Kamikaze : Tous les perso qui se défendent contre une attaque du kamikaze
+            // se défendent contre le même jet d’attaque
             sameJet = new Random().Next(1, 101);
 
             (this as IPain).IsSensitiveToPain();    // Check si on est affecté par la douleur

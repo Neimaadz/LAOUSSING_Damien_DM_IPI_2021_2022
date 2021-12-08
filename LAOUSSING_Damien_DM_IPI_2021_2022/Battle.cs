@@ -46,13 +46,13 @@ namespace LAOUSSING_Damien_DM_IPI_2021_2022
                 // Puis on lance les jet d'initiative pour chaque personnages
                 for (int i = 0; i < Characters.Count; i++)
                 {
-                    int jetInitiative = Characters[i].Item2.Initiative + new Random().Next(1, 101);
+                    int jetInitiative = Characters[i].Item2.JetInitiative();
 
-                    // On va chercher, parmi la liste de persos, si le jetInitiative qu'on vient de lancer (pour perso actuel)
-                    // est déjà égal à celui parmi la liste de persos
-                    while (Characters.Any(x => x.Item1 == jetInitiative))
+                    // Pour ne pas avoir de jet d'initiative en doublons
+                    // On relance un jet d'initiative tant que c'est égal à un jet d'un autre perso (sauf Robot)
+                    while (Characters.Any(x => x.Item1 == jetInitiative) && Characters[i].Item2.GetType() != typeof(Robot))
                     {
-                        jetInitiative = Characters[i].Item2.Initiative + new Random().Next(1, 101); // On relance tant que c'est égal
+                        jetInitiative = Characters[i].Item2.JetInitiative();
                     }
 
                     Characters[i] = Tuple.Create(jetInitiative, Characters[i].Item2);   // On OVERRIDE les données de la liste du Tuple

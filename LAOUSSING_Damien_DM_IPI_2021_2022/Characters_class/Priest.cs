@@ -28,6 +28,18 @@ namespace LAOUSSING_Damien_DM_IPI_2021_2022
             CurrentAttackNumber = TotalAttackNumber;    // Réinitialisation des points d'actions
 
             // Priest : Se soigne de 10% de MaximumLife au début de chaque tour
+            Heal();
+
+            (this as IPain).IsSensitiveToPain();    // Check si on est affecté par la douleur
+        }
+
+
+
+        // =======================================================================
+        // (Priest) Se soigne de 10% de MaximumLife au début de chaque tour
+        // =======================================================================
+        private void Heal()
+        {
             int heal = (int)(MaximumLife * 0.1);
 
             Console.WriteLine("{0} se soigne", Name);
@@ -40,10 +52,7 @@ namespace LAOUSSING_Damien_DM_IPI_2021_2022
             {
                 CurrentLife = MaximumLife;
             }
-
-            (this as IPain).IsSensitiveToPain();    // Check si on est affecté par la douleur
         }
-
 
 
         // =======================================================================
