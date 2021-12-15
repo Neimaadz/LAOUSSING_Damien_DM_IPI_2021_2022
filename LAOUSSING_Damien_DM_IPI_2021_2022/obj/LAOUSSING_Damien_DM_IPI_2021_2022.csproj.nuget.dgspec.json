@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "/Users/damien/Library/Mobile Documents/com~apple~CloudDocs/Documents/MASTER 1 - EISI/C_sharp/workspaces/LAOUSSING_Damien_DM_IPI_2021_2022/LAOUSSING_Damien_DM_IPI_2021_2022/LAOUSSING_Damien_DM_IPI_2021_2022.csproj": {}
+    "/Users/damien/Library/Mobile Documents/com~apple~CloudDocs/Documents/MASTER 1/C_sharp/workspaces/LAOUSSING_Damien_DM_IPI_2021_2022/LAOUSSING_Damien_DM_IPI_2021_2022/LAOUSSING_Damien_DM_IPI_2021_2022.csproj": {}
   },
   "projects": {
-    "/Users/damien/Library/Mobile Documents/com~apple~CloudDocs/Documents/MASTER 1 - EISI/C_sharp/workspaces/LAOUSSING_Damien_DM_IPI_2021_2022/LAOUSSING_Damien_DM_IPI_2021_2022/LAOUSSING_Damien_DM_IPI_2021_2022.csproj": {
+    "/Users/damien/Library/Mobile Documents/com~apple~CloudDocs/Documents/MASTER 1/C_sharp/workspaces/LAOUSSING_Damien_DM_IPI_2021_2022/LAOUSSING_Damien_DM_IPI_2021_2022/LAOUSSING_Damien_DM_IPI_2021_2022.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "/Users/damien/Library/Mobile Documents/com~apple~CloudDocs/Documents/MASTER 1 - EISI/C_sharp/workspaces/LAOUSSING_Damien_DM_IPI_2021_2022/LAOUSSING_Damien_DM_IPI_2021_2022/LAOUSSING_Damien_DM_IPI_2021_2022.csproj",
+        "projectUniqueName": "/Users/damien/Library/Mobile Documents/com~apple~CloudDocs/Documents/MASTER 1/C_sharp/workspaces/LAOUSSING_Damien_DM_IPI_2021_2022/LAOUSSING_Damien_DM_IPI_2021_2022/LAOUSSING_Damien_DM_IPI_2021_2022.csproj",
         "projectName": "LAOUSSING_Damien_DM_IPI_2021_2022",
-        "projectPath": "/Users/damien/Library/Mobile Documents/com~apple~CloudDocs/Documents/MASTER 1 - EISI/C_sharp/workspaces/LAOUSSING_Damien_DM_IPI_2021_2022/LAOUSSING_Damien_DM_IPI_2021_2022/LAOUSSING_Damien_DM_IPI_2021_2022.csproj",
+        "projectPath": "/Users/damien/Library/Mobile Documents/com~apple~CloudDocs/Documents/MASTER 1/C_sharp/workspaces/LAOUSSING_Damien_DM_IPI_2021_2022/LAOUSSING_Damien_DM_IPI_2021_2022/LAOUSSING_Damien_DM_IPI_2021_2022.csproj",
         "packagesPath": "/Users/damien/.nuget/packages/",
-        "outputPath": "/Users/damien/Library/Mobile Documents/com~apple~CloudDocs/Documents/MASTER 1 - EISI/C_sharp/workspaces/LAOUSSING_Damien_DM_IPI_2021_2022/LAOUSSING_Damien_DM_IPI_2021_2022/obj/",
+        "outputPath": "/Users/damien/Library/Mobile Documents/com~apple~CloudDocs/Documents/MASTER 1/C_sharp/workspaces/LAOUSSING_Damien_DM_IPI_2021_2022/LAOUSSING_Damien_DM_IPI_2021_2022/obj/",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "/Users/damien/.config/NuGet/NuGet.Config"
