@@ -99,8 +99,23 @@ namespace LAOUSSING_Damien_DM_IPI_2021_2022
             Character target;
             int numbCharactersRemaining = characters.Count; // Nombre de personnage restant
             int index = 0;
+            bool haveTarget = false;
 
-            index = new Random().Next(0, numbCharactersRemaining);
+            do
+            {
+                for (int i = 0; i < numbCharactersRemaining; i++) // Chaque persos (y compris lui) peut être ciblé
+                {
+                    int randNumb = new Random().Next(2); // 0 ou 1
+
+                    if (randNumb == 1)  // 50% de chances
+                    {
+                        haveTarget = true;
+                        index = i;
+                        break;
+                    }
+                }
+            }
+            while (haveTarget == false);
 
             target = characters[index].Item2;
 
