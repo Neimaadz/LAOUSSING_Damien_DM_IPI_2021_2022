@@ -37,11 +37,9 @@ namespace LAOUSSING_Damien_DM_IPI_2021_2022
         public override void ActionCounterAttack(List<Tuple<int, Character>> characters, Character target, int margeAttack)
         {
             Console.WriteLine("{0} lance Contre-attaque", Name);
-            int bonusAttack = (margeAttack * (-1)) * 2; // Bonus contre-attaque doublé
 
-            int jetAttack = JetAttack() + bonusAttack;
-            int targetJetDefense = target.JetDefense();
-            int margeCounterAttack = jetAttack - targetJetDefense;
+            int bonusAttack = (margeAttack * (-1)) * 2; // Bonus contre-attaque doublé
+            int margeCounterAttack = (JetAttack() + bonusAttack) - target.JetDefense();
             int damageDeal = margeCounterAttack * Damage / 100;
 
             DealDamage(characters, target, margeCounterAttack, damageDeal);

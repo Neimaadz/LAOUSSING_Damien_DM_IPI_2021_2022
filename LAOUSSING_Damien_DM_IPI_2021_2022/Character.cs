@@ -66,9 +66,7 @@ namespace LAOUSSING_Damien_DM_IPI_2021_2022
         {
             Console.WriteLine("{0} lance Attaque", Name);
 
-            int jetAttack = JetAttack();
-            int targetJetDefense = target.JetDefense();
-            int margeAttack = jetAttack - targetJetDefense;
+            int margeAttack = JetAttack() - target.JetDefense();
             int damageDeal = margeAttack * Damage / 100;
 
             DealDamage(characters, target, margeAttack, damageDeal);
@@ -77,11 +75,9 @@ namespace LAOUSSING_Damien_DM_IPI_2021_2022
         public virtual void ActionCounterAttack(List<Tuple<int, Character>> characters, Character target, int margeAttack)
         {
             Console.WriteLine("{0} lance Contre-attaque", Name);
-            int bonusAttack = margeAttack * (-1);
 
-            int jetAttack = JetAttack() + bonusAttack;
-            int targetJetDefense = target.JetDefense();
-            int margeCounterAttack = jetAttack - targetJetDefense;
+            int bonusAttack = margeAttack * (-1);
+            int margeCounterAttack = (JetAttack() + bonusAttack) - target.JetDefense();
             int damageDeal = margeCounterAttack * Damage / 100;
 
             DealDamage(characters, target, margeCounterAttack, damageDeal);

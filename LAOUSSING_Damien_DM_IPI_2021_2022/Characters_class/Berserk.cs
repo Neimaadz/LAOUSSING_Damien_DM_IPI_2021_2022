@@ -58,13 +58,8 @@ namespace LAOUSSING_Damien_DM_IPI_2021_2022
         {
             Console.WriteLine("{0} lance Attaque", Name);
 
-            int jetAttack = JetAttack();
-            int targetJetDefense = target.JetDefense();
-            int margeAttack = jetAttack - targetJetDefense;
-
-            // Berseker : Ajoute tous les points de vie qu'il a perdu a ses dégâts au moment d’attaquer
-            Damage = MaximumLife - CurrentLife;
-            int damageDeal = margeAttack * Damage / 100;
+            int margeAttack = JetAttack() - target.JetDefense();
+            int damageDeal = margeAttack * (Damage + (MaximumLife - CurrentLife)) / 100; // Ajoute vie perdu aux dégats
 
             DealDamage(characters, target, margeAttack, damageDeal);
         }
