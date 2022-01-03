@@ -21,6 +21,7 @@ namespace LAOUSSING_Damien_DM_IPI_2021_2022
         {
             for (int i = 0; i < Characters.Count; i++)
             {
+                int indexTarget = 0;
                 Character currentCharacter = Characters[i].Item2;
 
                 AlertCantAttack(currentCharacter);
@@ -35,12 +36,9 @@ namespace LAOUSSING_Damien_DM_IPI_2021_2022
                     // Tant que personnage du JOUEUR peux attaquer
                     while (PlayerCharacter.CurrentAttackNumber > 0 && PlayerCharacter.CurrentLife > 0 && Battle.HaveWinner(Characters) == false)
                     {
-                        int indexTarget = 0;
-
                         // permet de récup l'index de la cible
-                        Characters.ForEach(c => { if (c.Item2 == Target) indexTarget = Characters.IndexOf(c); });
+                        Characters.ForEach(c => { if (c.Item2 == Target) indexTarget = Characters.IndexOf(c)-1; });
 
-                        Console.WriteLine();
                         PlayerCharacter.ActionAttack(Characters);
                         Console.WriteLine();
 
@@ -67,13 +65,11 @@ namespace LAOUSSING_Damien_DM_IPI_2021_2022
                 {
                     while (currentCharacter.CurrentAttackNumber > 0 && currentCharacter.CurrentLife > 0 && Battle.HaveWinner(Characters) == false)
                     {
-                        int indexTarget = 0;
+                        // permet de récup l'index de la cible
+                        Characters.ForEach(c => { if (c.Item2 == Target) indexTarget = Characters.IndexOf(c)-1; });
 
                         currentCharacter.ActionAttack(Characters);
                         Console.WriteLine();
-
-                        // permet de récup l'index de la cible
-                        Characters.ForEach(c => { if (c.Item2 == Target) indexTarget = Characters.IndexOf(c); });
 
 
                         // Le personnage JOUEUR est la cible et meurt (de l'attaque)
@@ -88,7 +84,6 @@ namespace LAOUSSING_Damien_DM_IPI_2021_2022
                         AlertCantAttack(currentCharacter);
                     }
                 }
-
 
 
 
@@ -127,8 +122,8 @@ namespace LAOUSSING_Damien_DM_IPI_2021_2022
         // =======================================================================
         private int UpdateIndex(Character currentCharacter, Character target, int i, int indexTarget)
         {
-            // Si attaquant meurt (par contre-attaque) && position attaquant est AVANT celle défenseur
-            if (currentCharacter.CurrentLife <= 0 && i <= indexTarget)
+            // Si attaquant meurt (par contre-attaque)
+            if (currentCharacter.CurrentLife <= 0)
             {
                 // Si position attaquant <= 0
                 if (i <= 0)
@@ -136,17 +131,17 @@ namespace LAOUSSING_Damien_DM_IPI_2021_2022
                     i = -1; // i sera égal à -1 pour juste après revenir à i=0 (boucle for : i++)
                     return i;
                 }
-                else
+                else if (i > indexTarget || i < indexTarget)
                 {
                     i -= 1; // On retire -1 (personnage)
                     return i;
                 }
             }
-            // Si attaquant tue defenseur et position attaquant est APRES celle defenseur
-            else if (target.CurrentLife <= 0 && i > indexTarget)
+            // Si attaquant tue defenseur
+            else if (target.CurrentLife <= 0)
             {
-                // Si position attaquant > 0
-                if (i > 0)
+                // Si position attaquant APRES celle défenseur
+                if (i > indexTarget)
                 {
                     i -= 1;
                     return i;

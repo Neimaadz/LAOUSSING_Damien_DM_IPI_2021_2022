@@ -16,7 +16,7 @@ namespace LAOUSSING_Damien_DM_IPI_2021_2022
         int IPain.CountAttackOff { get => CountAttackOff; set => CountAttackOff = value; }
 
 
-        public Kamikaze(string name) : base(name, 50, 125, 20, 75, 500, 500, 6, 6)
+        public Kamikaze(string name) : base(name, 150, 125, 20, 75, 500, 500, 6, 6)
         {
         }
 
@@ -32,7 +32,7 @@ namespace LAOUSSING_Damien_DM_IPI_2021_2022
 
 
         // =======================================================================
-        // (Kamikaze) Même jet d'attaque
+        // (Kamikaze) Tous les perso qui se défendent contre une attaque du kamikaze se défendent contre le même jet d’attaque
         // =======================================================================
         public override int JetAttack()
         {
@@ -41,12 +41,11 @@ namespace LAOUSSING_Damien_DM_IPI_2021_2022
 
 
         // =======================================================================
-        // (Kamikaze) Tous les perso qui se défendent contre une attaque du kamikaze se défendent contre le même jet d’attaque
+        //  (Kamikaze) Chaque personnage présent sur le champ de bataille (y compris lui) a 50% de chances d’être ciblé par son attaque
         // =======================================================================
         public override void ActionAttack(List<Tuple<int, Character>> characters)
         {
             Character target;
-            List<Character> targets = ListRandomTarget(characters);
 
             // Kamikaze : Tous les perso qui se défendent contre une attaque du kamikaze
             // se défendent contre le même jet d’attaque
@@ -56,15 +55,20 @@ namespace LAOUSSING_Damien_DM_IPI_2021_2022
 
             Console.WriteLine("{0} lance Attaque", Name);
 
-            for (int i = 0; i < targets.Count; i++)
+            for (int i = 0; i < characters.Count; i++)  // Chaque persos (y compris lui) peut être ciblé
             {
-                target = targets[i];
-                Round.Target = targets[i];
+                int randNumb = new Random().Next(2); // 0 ou 1
 
-                int margeAttack = JetAttack() - target.JetDefense();
-                int damageDeal = margeAttack * Damage / 100;
+                if (randNumb == 1)  // 50% de chances
+                {
+                    target = characters[i].Item2;
+                    Round.Target = target;
 
-                DealDamage(characters, target, margeAttack, damageDeal);
+                    int margeAttack = JetAttack() - target.JetDefense();
+                    int damageDeal = margeAttack * Damage / 100;
+
+                    DealDamage(characters, target, margeAttack, damageDeal);
+                }
             }
         }
 
@@ -114,26 +118,6 @@ namespace LAOUSSING_Damien_DM_IPI_2021_2022
         }
 
 
-        // =======================================================================
-        // (Kamikaze) Chaque personnage présent sur le champ de bataille (y compris lui) a 50% de chances d’être ciblé par son attaque
-        // =======================================================================
-        public List<Character> ListRandomTarget(List<Tuple<int, Character>> characters)
-        {
-            List<Character> targets = new List<Character>();
-            int numbCharactersRemaining = characters.Count; // Nombre de personnage restant
-
-            for (int i = 0; i < numbCharactersRemaining; i++) // Chaque persos (y compris lui) peut être ciblé
-            {
-                int randNumb = new Random().Next(2); // 0 ou 1
-
-                if (randNumb == 1)  // 50% de chances
-                {
-                    targets.Add(characters[i].Item2);
-                }
-            }
-
-            return targets;
-        }
 
 
 
