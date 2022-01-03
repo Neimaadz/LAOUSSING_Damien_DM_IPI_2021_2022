@@ -6,7 +6,9 @@ namespace LAOUSSING_Damien_DM_IPI_2021_2022
     public class Round
     {
         private List<Tuple<int, Character>> Characters;
-        public Character PlayerCharacter;
+        private Character PlayerCharacter = Program.PlayerCharacter;
+        public static Character Target;
+        public static bool PlayerTurn;  // Boolean si c'est au tour du Player de jouer
 
         public Round(List<Tuple<int, Character>> characters)
         {
@@ -28,18 +30,18 @@ namespace LAOUSSING_Damien_DM_IPI_2021_2022
 
                 if (currentCharacter == PlayerCharacter && PlayerCharacter.CurrentAttackNumber > 0 && PlayerCharacter.CurrentLife > 0 && Battle.HaveWinner(Characters) == false)
                 {
+                    PlayerTurn = true;
+
                     // Tant que personnage du JOUEUR peux attaquer
                     while (PlayerCharacter.CurrentAttackNumber > 0 && PlayerCharacter.CurrentLife > 0 && Battle.HaveWinner(Characters) == false)
                     {
                         int indexTarget = 0;
-                        Character target = PlayerActions.ChooseTarget(Characters, PlayerCharacter);
-                        Console.WriteLine();
 
                         // permet de récup l'index de la cible
-                        Characters.ForEach(c => { if (c.Item2 == target) indexTarget = Characters.IndexOf(c); });
+                        Characters.ForEach(c => { if (c.Item2 == Target) indexTarget = Characters.IndexOf(c); });
 
                         Console.WriteLine();
-                        PlayerCharacter.ActionAttack(Characters, target);
+                        PlayerCharacter.ActionAttack(Characters);
                         Console.WriteLine();
 
 
@@ -49,10 +51,12 @@ namespace LAOUSSING_Damien_DM_IPI_2021_2022
                             AlertPlayerCharacterDead();
                         }
 
-                        i = UpdateIndex(currentCharacter, target, i, indexTarget);
+                        i = UpdateIndex(currentCharacter, Target, i, indexTarget);
 
                         AlertCantAttack(currentCharacter);
                     }
+
+                    PlayerTurn = false;
 
                     PlayerActions.PressSpaceContinue();
                 }
@@ -64,23 +68,22 @@ namespace LAOUSSING_Damien_DM_IPI_2021_2022
                     while (currentCharacter.CurrentAttackNumber > 0 && currentCharacter.CurrentLife > 0 && Battle.HaveWinner(Characters) == false)
                     {
                         int indexTarget = 0;
-                        Character target = currentCharacter.RandomTarget(Characters);
+
+                        currentCharacter.ActionAttack(Characters);
+                        Console.WriteLine();
 
                         // permet de récup l'index de la cible
-                        Characters.ForEach(c => { if (c.Item2 == target) indexTarget = Characters.IndexOf(c); });
-
-                        currentCharacter.ActionAttack(Characters, target);
-                        Console.WriteLine();
+                        Characters.ForEach(c => { if (c.Item2 == Target) indexTarget = Characters.IndexOf(c); });
 
 
                         // Le personnage JOUEUR est la cible et meurt (de l'attaque)
-                        if (target == PlayerCharacter && PlayerCharacter.CurrentLife <= 0)
+                        if (Target == PlayerCharacter && PlayerCharacter.CurrentLife <= 0)
                         {
                             AlertPlayerCharacterDead();
                             PlayerActions.PressSpaceContinue();
                         }
 
-                        i = UpdateIndex(currentCharacter, target, i, indexTarget);
+                        i = UpdateIndex(currentCharacter, Target, i, indexTarget);
 
                         AlertCantAttack(currentCharacter);
                     }

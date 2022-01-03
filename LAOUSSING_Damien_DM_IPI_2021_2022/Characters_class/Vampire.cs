@@ -16,8 +16,6 @@ namespace LAOUSSING_Damien_DM_IPI_2021_2022
         // =======================================================================
         public override void DealDamage(List<Tuple<int, Character>> characters, Character target, int margeAttack, int damageDeal)
         {
-            CurrentAttackNumber -= 1;   // On retire -1 point d'attaque
-
             switch (margeAttack)
             {
                 //============================ Attaque réussi ===========================================================

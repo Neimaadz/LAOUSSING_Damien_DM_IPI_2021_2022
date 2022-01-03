@@ -5,6 +5,8 @@ namespace LAOUSSING_Damien_DM_IPI_2021_2022
 {
     class Program
     {
+        public static Character PlayerCharacter;
+
         static void Main(string[] args)
         {
             List<Tuple<int, Type>> listTypes = new List<Tuple<int, Type>>();
@@ -100,7 +102,7 @@ namespace LAOUSSING_Damien_DM_IPI_2021_2022
 
 
                 Battle battle = new Battle(characters);
-                battle.PlayerCharacter = playerCharacter;
+                PlayerCharacter = playerCharacter;
                 battle.StartBattle();
             }
             else  // Demo AI

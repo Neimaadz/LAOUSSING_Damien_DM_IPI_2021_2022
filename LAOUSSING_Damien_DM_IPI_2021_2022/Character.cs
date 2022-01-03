@@ -62,8 +62,26 @@ namespace LAOUSSING_Damien_DM_IPI_2021_2022
             return Defense + new Random().Next(1, 101);
         }
 
-        public virtual void ActionAttack(List<Tuple<int, Character>> characters, Character target)
+        public virtual void ActionAttack(List<Tuple<int, Character>> characters)
         {
+            //============================ Target ==============================================================
+            Character target;
+
+            if (Round.PlayerTurn == true)
+            {
+                target = PlayerActions.ChooseTarget(characters, Program.PlayerCharacter);
+                Console.WriteLine();
+            }
+            else
+            {
+                target = RandomTarget(characters);
+            }
+
+            Round.Target = target;
+            //==================================================================================================
+
+            CurrentAttackNumber -= 1;   // On retire -1 point d'attaque
+
             Console.WriteLine("{0} lance Attaque", Name);
 
             int margeAttack = JetAttack() - target.JetDefense();
@@ -74,6 +92,8 @@ namespace LAOUSSING_Damien_DM_IPI_2021_2022
 
         public virtual void ActionCounterAttack(List<Tuple<int, Character>> characters, Character target, int margeAttack)
         {
+            CurrentAttackNumber -= 1;   // On retire -1 point d'attaque
+
             Console.WriteLine("{0} lance Contre-attaque", Name);
 
             int bonusAttack = margeAttack * (-1);
@@ -89,8 +109,6 @@ namespace LAOUSSING_Damien_DM_IPI_2021_2022
         // =======================================================================
         public virtual void DealDamage(List<Tuple<int, Character>> characters, Character target, int margeAttack, int damageDeal)
         {
-            CurrentAttackNumber -= 1;   // On retire -1 point d'attaque
-
             switch (margeAttack)
             {
                 //============================ Attaque réussi ===========================================================

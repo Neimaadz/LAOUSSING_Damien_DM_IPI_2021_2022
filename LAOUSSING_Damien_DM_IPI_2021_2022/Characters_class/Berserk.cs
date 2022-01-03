@@ -54,8 +54,26 @@ namespace LAOUSSING_Damien_DM_IPI_2021_2022
         // =======================================================================
         // (Berseker) Ajoute tous les points de vie qu'il a perdu a ses dégâts au moment d’attaquer
         // =======================================================================
-        public override void ActionAttack(List<Tuple<int, Character>> characters, Character target)
+        public override void ActionAttack(List<Tuple<int, Character>> characters)
         {
+            //============================ Target ==============================================================
+            Character target;
+
+            if (Round.PlayerTurn == true)
+            {
+                target = PlayerActions.ChooseTarget(characters, Program.PlayerCharacter);
+                Console.WriteLine();
+            }
+            else
+            {
+                target = RandomTarget(characters);
+            }
+
+            Round.Target = target;
+            //==================================================================================================
+
+            CurrentAttackNumber -= 1;   // On retire -1 point d'attaque
+
             Console.WriteLine("{0} lance Attaque", Name);
 
             int margeAttack = JetAttack() - target.JetDefense();

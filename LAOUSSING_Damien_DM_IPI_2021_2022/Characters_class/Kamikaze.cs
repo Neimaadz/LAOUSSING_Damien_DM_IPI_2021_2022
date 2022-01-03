@@ -26,10 +26,6 @@ namespace LAOUSSING_Damien_DM_IPI_2021_2022
         {
             CurrentAttackNumber = TotalAttackNumber;    // Réinitialisation des points d'actions
 
-            // Kamikaze : Tous les perso qui se défendent contre une attaque du kamikaze
-            // se défendent contre le même jet d’attaque
-            sameJet = new Random().Next(1, 101);
-
             (this as IPain).IsSensitiveToPain();    // Check si on est affecté par la douleur
         }
 
@@ -41,6 +37,35 @@ namespace LAOUSSING_Damien_DM_IPI_2021_2022
         public override int JetAttack()
         {
             return Attack + sameJet;    // Même jet d'attaque
+        }
+
+
+        // =======================================================================
+        // (Kamikaze) Tous les perso qui se défendent contre une attaque du kamikaze se défendent contre le même jet d’attaque
+        // =======================================================================
+        public override void ActionAttack(List<Tuple<int, Character>> characters)
+        {
+            Character target;
+            List<Character> targets = ListRandomTarget(characters);
+
+            // Kamikaze : Tous les perso qui se défendent contre une attaque du kamikaze
+            // se défendent contre le même jet d’attaque
+            sameJet = new Random().Next(1, 101);
+
+            CurrentAttackNumber -= 1;   // On retire -1 point d'attaque
+
+            Console.WriteLine("{0} lance Attaque", Name);
+
+            for (int i = 0; i < targets.Count; i++)
+            {
+                target = targets[i];
+                Round.Target = targets[i];
+
+                int margeAttack = JetAttack() - target.JetDefense();
+                int damageDeal = margeAttack * Damage / 100;
+
+                DealDamage(characters, target, margeAttack, damageDeal);
+            }
         }
 
 
@@ -59,8 +84,6 @@ namespace LAOUSSING_Damien_DM_IPI_2021_2022
         // =======================================================================
         public override void DealDamage(List<Tuple<int, Character>> characters, Character target, int margeAttack, int damageDeal)
         {
-            CurrentAttackNumber -= 1;   // On retire -1 point d'attaque
-
             switch (margeAttack)
             {
                 //============================ Attaque réussi ===========================================================
@@ -92,34 +115,24 @@ namespace LAOUSSING_Damien_DM_IPI_2021_2022
 
 
         // =======================================================================
-        // (Kamikaze) chaque personnage présent sur le champ de bataille (y compris lui) a 50% de chances d’être ciblé par son attaque
+        // (Kamikaze) Chaque personnage présent sur le champ de bataille (y compris lui) a 50% de chances d’être ciblé par son attaque
         // =======================================================================
-        public override Character RandomTarget(List<Tuple<int, Character>> characters)
+        public List<Character> ListRandomTarget(List<Tuple<int, Character>> characters)
         {
-            Character target;
+            List<Character> targets = new List<Character>();
             int numbCharactersRemaining = characters.Count; // Nombre de personnage restant
-            int index = 0;
-            bool haveTarget = false;
 
-            do
+            for (int i = 0; i < numbCharactersRemaining; i++) // Chaque persos (y compris lui) peut être ciblé
             {
-                for (int i = 0; i < numbCharactersRemaining; i++) // Chaque persos (y compris lui) peut être ciblé
-                {
-                    int randNumb = new Random().Next(2); // 0 ou 1
+                int randNumb = new Random().Next(2); // 0 ou 1
 
-                    if (randNumb == 1)  // 50% de chances
-                    {
-                        haveTarget = true;
-                        index = i;
-                        break;
-                    }
+                if (randNumb == 1)  // 50% de chances
+                {
+                    targets.Add(characters[i].Item2);
                 }
             }
-            while (haveTarget == false);
 
-            target = characters[index].Item2;
-
-            return target;
+            return targets;
         }
 
 
