@@ -185,35 +185,6 @@ namespace LAOUSSING_Damien_DM_IPI_2021_2022
 
             return i;
         }
-        //private int UpdateIndex(Character currentCharacter, Character target, int i, int indexTarget)
-        //{
-        //    // Si attaquant meurt (par contre-attaque)
-        //    if (currentCharacter.CurrentLife <= 0)
-        //    {
-        //        // Si position attaquant <= 0
-        //        if (i <= 0)
-        //        {
-        //            i = -1; // i sera égal à -1 pour juste après revenir à i=0 (boucle for : i++)
-        //            return i;
-        //        }
-        //        else if (i >= indexTarget)
-        //        {
-        //            i -= 1; // On retire -1 (personnage)
-        //            return i;
-        //        }
-        //    }
-        //    // Si attaquant tue defenseur
-        //    else if (target.CurrentLife <= 0)
-        //    {
-        //        if (i >= indexTarget)
-        //        {
-        //            i -= 1;
-        //            return i;
-        //        }
-        //    }
-
-        //    return i;
-        //}
 
 
         // =======================================================================
