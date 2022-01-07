@@ -65,6 +65,7 @@ namespace LAOUSSING_Damien_DM_IPI_2021_2022
         public virtual void ActionAttack(List<Tuple<int, Character>> characters)
         {
             //============================ Target ==============================================================
+            Round.Target = new List<Character>();   // Rénitialiser la liste des targets
             Character target;
 
             if (Round.PlayerTurn == true)
@@ -77,7 +78,7 @@ namespace LAOUSSING_Damien_DM_IPI_2021_2022
                 target = RandomTarget(characters);
             }
 
-            Round.Target = target;
+            Round.Target.Add(target);
             //==================================================================================================
 
             CurrentAttackNumber -= 1;   // On retire -1 point d'attaque

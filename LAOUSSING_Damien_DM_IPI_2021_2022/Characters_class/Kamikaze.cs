@@ -45,6 +45,7 @@ namespace LAOUSSING_Damien_DM_IPI_2021_2022
         // =======================================================================
         public override void ActionAttack(List<Tuple<int, Character>> characters)
         {
+            Round.Target = new List<Character>();   // Rénitialiser la liste des targets
             Character target;
 
             // Kamikaze : Tous les perso qui se défendent contre une attaque du kamikaze
@@ -62,7 +63,7 @@ namespace LAOUSSING_Damien_DM_IPI_2021_2022
                 if (randNumb == 1)  // 50% de chances
                 {
                     target = characters[i].Item2;
-                    Round.Target = target;
+                    Round.Target.Add(target);
 
                     int margeAttack = JetAttack() - target.JetDefense();
                     int damageDeal = margeAttack * Damage / 100;

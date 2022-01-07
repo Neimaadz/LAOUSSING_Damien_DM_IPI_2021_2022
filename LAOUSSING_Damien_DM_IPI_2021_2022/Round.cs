@@ -7,7 +7,7 @@ namespace LAOUSSING_Damien_DM_IPI_2021_2022
     {
         private List<Tuple<int, Character>> Characters;
         private Character PlayerCharacter = Program.PlayerCharacter;
-        public static Character Target;
+        public static List<Character> Target = new List<Character>();
         public static bool PlayerTurn;  // Boolean si c'est au tour du Player de jouer
 
         public Round(List<Tuple<int, Character>> characters)
@@ -19,12 +19,12 @@ namespace LAOUSSING_Damien_DM_IPI_2021_2022
 
         public void PlayRound()
         {
+            Target = new List<Character>();
+            List<Tuple< int, Character >> charactersBefore = new List<Tuple<int, Character>>(Characters);
+
             for (int i = 0; i < Characters.Count; i++)
             {
-                int indexTarget = 0;
                 Character currentCharacter = Characters[i].Item2;
-
-                AlertCantAttack(currentCharacter);
 
 
                 // ************************* Round du JOUEUR *************************
@@ -36,12 +36,8 @@ namespace LAOUSSING_Damien_DM_IPI_2021_2022
                     // Tant que personnage du JOUEUR peux attaquer
                     while (PlayerCharacter.CurrentAttackNumber > 0 && PlayerCharacter.CurrentLife > 0 && Battle.HaveWinner(Characters) == false)
                     {
-                        // permet de récup l'index de la cible
-                        Characters.ForEach(c => { if (c.Item2 == Target) indexTarget = Characters.IndexOf(c)-1; });
-
                         PlayerCharacter.ActionAttack(Characters);
                         Console.WriteLine();
-
 
                         // Le personnage JOUEUR meurt (d'une contre-attaque)
                         if (PlayerCharacter.CurrentLife <= 0)
@@ -49,9 +45,7 @@ namespace LAOUSSING_Damien_DM_IPI_2021_2022
                             AlertPlayerCharacterDead();
                         }
 
-                        i = UpdateIndex(currentCharacter, Target, i, indexTarget);
-
-                        AlertCantAttack(currentCharacter);
+                        i = UpdateIndex(charactersBefore, currentCharacter, Target, i);
                     }
 
                     PlayerTurn = false;
@@ -65,27 +59,23 @@ namespace LAOUSSING_Damien_DM_IPI_2021_2022
                 {
                     while (currentCharacter.CurrentAttackNumber > 0 && currentCharacter.CurrentLife > 0 && Battle.HaveWinner(Characters) == false)
                     {
-                        // permet de récup l'index de la cible
-                        Characters.ForEach(c => { if (c.Item2 == Target) indexTarget = Characters.IndexOf(c)-1; });
-
                         currentCharacter.ActionAttack(Characters);
                         Console.WriteLine();
-
+                        //Target.ForEach(c => { Console.WriteLine(c); });
 
                         // Le personnage JOUEUR est la cible et meurt (de l'attaque)
-                        if (Target == PlayerCharacter && PlayerCharacter.CurrentLife <= 0)
+                        if (Target.Contains(PlayerCharacter) && PlayerCharacter.CurrentLife <= 0)
                         {
                             AlertPlayerCharacterDead();
                             PlayerActions.PressSpaceContinue();
                         }
 
-                        i = UpdateIndex(currentCharacter, Target, i, indexTarget);
-
-                        AlertCantAttack(currentCharacter);
+                        i = UpdateIndex(charactersBefore, currentCharacter, Target, i);
                     }
                 }
 
 
+                AlertCantAttack(currentCharacter);
 
                 Battle.HaveWinner(Characters); // On check s'il y a un gagnant durant le round
             }
@@ -120,35 +110,110 @@ namespace LAOUSSING_Damien_DM_IPI_2021_2022
         // =======================================================================
         // Met à jour l'indice selon cas précis
         // =======================================================================
-        private int UpdateIndex(Character currentCharacter, Character target, int i, int indexTarget)
+        private int UpdateIndex(List<Tuple<int, Character>> charactersBefore, Character currentCharacter,
+            List<Character> target, int i)
         {
-            // Si attaquant meurt (par contre-attaque)
-            if (currentCharacter.CurrentLife <= 0)
+            // Il y a eu un/des personnages morts
+            if (Characters.Count < charactersBefore.Count)
             {
-                // Si position attaquant <= 0
-                if (i <= 0)
-                {
-                    i = -1; // i sera égal à -1 pour juste après revenir à i=0 (boucle for : i++)
-                    return i;
-                }
-                else if (i >= indexTarget)
-                {
-                    i -= 1; // On retire -1 (personnage)
-                    return i;
-                }
-            }
-            // Si attaquant tue defenseur
-            else if (target.CurrentLife <= 0)
-            {
-                if (i >= indexTarget)
+                bool isTargetDead = false;
+                target.ForEach(c => { if (c.CurrentLife <= 0) isTargetDead = true; });
+
+                // On se fait tué par une Contre-attaque
+                if (currentCharacter.CurrentLife <= 0)
                 {
                     i -= 1;
                     return i;
+                }
+                // On tue un/des personnages
+                if (isTargetDead)
+                {
+                    int countDeadCharacters = charactersBefore.Count - Characters.Count;
+                    int indexTarget = 0;
+                    int indexCurrentCharacter = 0;
+
+                    charactersBefore.ForEach(c => { if (currentCharacter == c.Item2) indexCurrentCharacter = charactersBefore.IndexOf(c); });
+
+                    // Plusieurs morts (KAMIKAZE)
+                    if (countDeadCharacters > 1)
+                    {
+                        for (int j=0; j<target.Count; j++)
+                        {
+                            if (target[j].CurrentLife <= 0)
+                            {
+                                charactersBefore.ForEach(c => { if (target[j] == c.Item2) indexTarget = charactersBefore.IndexOf(c); });
+
+                                if (indexCurrentCharacter > indexTarget)
+                                {
+                                    i -= 1;
+                                    return i;
+                                }
+                                else
+                                {
+                                    return i;
+                                }
+                            }
+                        }
+                    }
+                    // 1 seul mort
+                    else if (countDeadCharacters == 1)
+                    {
+                        charactersBefore.ForEach(c => { if (target[0] == c.Item2) indexTarget = charactersBefore.IndexOf(c); });
+
+                        if (indexCurrentCharacter > indexTarget)
+                        {
+                            i -= 1;
+
+                            if (i > 0)
+                            {
+                                if (Characters[i].Item2 == currentCharacter)
+                                {
+                                    i += 1;
+                                    return i;
+                                }
+                            }
+                            return i;
+                        }
+                        else
+                        {
+                            return i;
+                        }
+
+                    }
                 }
             }
 
             return i;
         }
+        //private int UpdateIndex(Character currentCharacter, Character target, int i, int indexTarget)
+        //{
+        //    // Si attaquant meurt (par contre-attaque)
+        //    if (currentCharacter.CurrentLife <= 0)
+        //    {
+        //        // Si position attaquant <= 0
+        //        if (i <= 0)
+        //        {
+        //            i = -1; // i sera égal à -1 pour juste après revenir à i=0 (boucle for : i++)
+        //            return i;
+        //        }
+        //        else if (i >= indexTarget)
+        //        {
+        //            i -= 1; // On retire -1 (personnage)
+        //            return i;
+        //        }
+        //    }
+        //    // Si attaquant tue defenseur
+        //    else if (target.CurrentLife <= 0)
+        //    {
+        //        if (i >= indexTarget)
+        //        {
+        //            i -= 1;
+        //            return i;
+        //        }
+        //    }
+
+        //    return i;
+        //}
 
 
         // =======================================================================
