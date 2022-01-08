@@ -16,7 +16,7 @@ namespace LAOUSSING_Damien_DM_IPI_2021_2022
         int IPain.CountAttackOff { get => CountAttackOff; set => CountAttackOff = value; }
 
 
-        public Kamikaze(string name) : base(name, 150, 125, 20, 75, 500, 500, 6, 6)
+        public Kamikaze(string name) : base(name, 75, 125, 20, 75, 500, 500, 6, 6)
         {
         }
 

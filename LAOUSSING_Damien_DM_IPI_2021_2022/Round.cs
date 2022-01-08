@@ -128,7 +128,9 @@ namespace LAOUSSING_Damien_DM_IPI_2021_2022
                 // On tue un/des personnages
                 if (isTargetDead)
                 {
-                    int countDeadCharacters = charactersBefore.Count - Characters.Count;
+                    int countDeadCharacters = 0;
+                    target.ForEach(c => { if (c.CurrentLife <= 0) countDeadCharacters += 1; });
+
                     int indexTarget = 0;
                     int indexCurrentCharacter = 0;
 
@@ -163,15 +165,6 @@ namespace LAOUSSING_Damien_DM_IPI_2021_2022
                         if (indexCurrentCharacter > indexTarget)
                         {
                             i -= 1;
-
-                            if (i > 0)
-                            {
-                                if (Characters[i].Item2 == currentCharacter)
-                                {
-                                    i += 1;
-                                    return i;
-                                }
-                            }
                             return i;
                         }
                         else
